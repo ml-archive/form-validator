@@ -13,11 +13,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        editText.addFieldValidListener(object : FieldValidChangeListener {
-            override fun onFieldValidityChanged(isValid: Boolean) {
-                editTextStatusTv.text = "Is valid: $isValid"
-            }
-        })
+        form.setFormValidListener {
+            button.isEnabled = it
+            button.text = "$it"
+        }
     }
 }

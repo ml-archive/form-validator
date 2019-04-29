@@ -10,17 +10,43 @@
         tools:context=".MainActivity">
 
 
-    <com.nodesagency.formvalidator.ValidatableEditText
-        android:id="@+id/editText"
+    <com.nodesagency.formvalidator.validators.FormLayout
+        android:id="@+id/form"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.nodesagency.formvalidator.ValidatableEditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.nodesagency.formvalidator.ValidatableEditText
+                android:id="@+id/editText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
-    <TextView
-        android:text="@string/app_name"
-        android:id="@+id/editTextStatusTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <com.nodesagency.formvalidator.ValidatableEditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+    </com.nodesagency.formvalidator.validators.FormLayout>
+
 
 
 </LinearLayout>

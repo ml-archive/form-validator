@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import com.google.android.material.textfield.TextInputEditText
 import com.nodesagency.formvalidator.base.FieldValidChangeListener
 import com.nodesagency.formvalidator.base.Validatable
@@ -23,7 +22,7 @@ class ValidatableEditText : TextInputEditText, Validatable {
         override fun afterTextChanged(p0: Editable?) {}
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            listeners.forEach { it.onFieldValidityChanged(validate()) }
+            listeners.forEach { it.onFieldValidityChanged(this@ValidatableEditText, validate()) }
         }
     }
 
