@@ -2,7 +2,7 @@ package com.nodesagency.formvalidator.validators
 
 import com.nodesagency.formvalidator.base.BaseValidator
 
-class TextValidator : BaseValidator<String> {
+open class TextInputValidator : BaseValidator<String> {
     override fun validate(value: String): Boolean {
         return value.isNotBlank()
     }

@@ -1,4 +1,4 @@
-package com.nodesagency.formvalidator.validators
+package com.nodesagency.formvalidator
 
 import android.content.Context
 import android.util.AttributeSet

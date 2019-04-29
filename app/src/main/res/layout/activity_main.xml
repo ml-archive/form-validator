@@ -10,7 +10,7 @@
         tools:context=".MainActivity">
 
 
-    <com.nodesagency.formvalidator.validators.FormLayout
+    <com.nodesagency.formvalidator.FormLayout
         android:id="@+id/form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,17 +21,22 @@
             android:layout_height="match_parent">
 
             <com.nodesagency.formvalidator.ValidatableEditText
+                android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:id="@+id/editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <com.nodesagency.formvalidator.ValidatableEditText
+                android:inputType="number"
+                android:hint="number"
                 android:id="@+id/editText1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
 
             <com.nodesagency.formvalidator.ValidatableEditText
+                android:hint="Not empty"
                 android:id="@+id/editText2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -45,7 +50,7 @@
         </LinearLayout>
 
 
-    </com.nodesagency.formvalidator.validators.FormLayout>
+    </com.nodesagency.formvalidator.FormLayout>
 
 
 
