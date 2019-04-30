@@ -62,13 +62,11 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
 
     private fun init(attrs: AttributeSet?) {
         attrs?.let(this::initFromAttributes)
-        Logger.log("Init{}")
         addTextChangedListener(textWatcher)
         setOnEditorActionListener(this)
 
         validator = getValidatorFromInputType()
 
-        Logger.log("Active validator: ${validator.javaClass.simpleName}")
     }
 
     override fun onAttachedToWindow() {
@@ -86,7 +84,6 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     override fun onEditorAction(tv: TextView?, actionId: Int, keyEvent: KeyEvent?): Boolean {
         // User is done with this field, validate the field and show if the input is valid
         if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
-            Logger.log("Validate and inform")
             validateAndInform()
         }
         return false
@@ -123,7 +120,6 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         if (!validate()) {
             // Let TextInputLayout Display the error
             if (textInputLayout != null) {
-                Logger.log("Eror")
                 textInputLayout?.error = "Invalid field"
             }
         }
