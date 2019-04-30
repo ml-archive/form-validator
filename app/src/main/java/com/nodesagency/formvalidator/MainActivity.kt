@@ -1,10 +1,8 @@
 package com.nodesagency.formvalidator
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.TextView
-import com.nodesagency.formvalidator.base.FieldValidChangeListener
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,5 +15,14 @@ class MainActivity : AppCompatActivity() {
             button.isEnabled = it
             button.text = "$it"
         }
+
+        createBtn.setOnClickListener {
+            if (form2.validateAll()) {
+                Toast.makeText(this, "Creating an account...", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Some fields are invalid", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 }

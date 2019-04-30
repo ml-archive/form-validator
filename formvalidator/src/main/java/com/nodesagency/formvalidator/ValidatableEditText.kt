@@ -12,7 +12,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.nodesagency.formvalidator.base.FieldValidChangeListener
+import com.nodesagency.formvalidator.base.ValidatableFieldListener
 import com.nodesagency.formvalidator.base.Validatable
 import com.nodesagency.formvalidator.utils.Logger
 import com.nodesagency.formvalidator.utils.onTextChanged
@@ -37,7 +37,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
 
     private var validator: TextInputValidator = OptionalValidator()
     private var requiredValidator: TextInputValidator = OptionalValidator()
-    private val listeners: MutableList<FieldValidChangeListener> = mutableListOf()
+    private val listenerValidatables: MutableList<ValidatableFieldListener> = mutableListOf()
 
     private var identicalTo: Int = 0
     private var isValid: Boolean = false
@@ -54,7 +54,8 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
             val validated = validate()
             if (validated != isValid) {
                 isValid = validated
-                listeners.forEach { it.onFieldValidityChanged(this@ValidatableEditText, validated) }
+                listenerValidatables.forEach { it.onFieldValidityChanged(this@ValidatableEditText, validated) }
+
             }
         }
     }
@@ -84,21 +85,26 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     override fun onEditorAction(tv: TextView?, actionId: Int, keyEvent: KeyEvent?): Boolean {
         // User is done with this field, validate the field and show if the input is valid
         if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
-            validateAndInform()
+          listenerValidatables.forEach { it.onInputConfirmed(this) }
         }
         return false
     }
 
 
-    override fun validate(): Boolean {
+    override fun validate(showError: Boolean): Boolean {
         val text = text?.toString() ?: ""
-        val requiredValidated = requiredValidator.validate(text)
-        val contentValidated = validator.validate(text)
-        return requiredValidated && contentValidated
+        val isValid = requiredValidator.validate(text) && validator.validate(text)
+
+        Logger.log("isVlaid: $isValid, Show Error $showError")
+        if (!isValid && showError) {
+            textInputLayout?.error = "Error"
+        }
+
+        return isValid
     }
 
-    override fun addFieldValidListener(listener: FieldValidChangeListener) {
-        listeners.add(listener)
+    override fun addFieldValidListener(listenerValidatable: ValidatableFieldListener) {
+        listenerValidatables.add(listenerValidatable)
     }
 
 
@@ -115,15 +121,6 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         attrs.recycle()
     }
 
-
-    private fun validateAndInform() {
-        if (!validate()) {
-            // Let TextInputLayout Display the error
-            if (textInputLayout != null) {
-                textInputLayout?.error = "Invalid field"
-            }
-        }
-    }
 
     private fun getValidatorFromInputType(): TextInputValidator {
         return when (inputType) {
