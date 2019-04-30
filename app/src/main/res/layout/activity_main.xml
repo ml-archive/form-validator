@@ -15,6 +15,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -74,6 +75,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Required medium passowrd" />
+
+
+
+            <com.nodesagency.formvalidator.ValidatableEditText
+                android:id="@+id/editText312"
+                android:imeOptions="actionDone"
+                app:required="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type" />
+
+
+
+            <com.nodesagency.formvalidator.ValidatableEditText
+                android:id="@+id/editText412"
+                app:passwordStreinght="medium"
+                android:imeOptions="actionDone"
+                app:identicalTo="@id/editText312"
+                app:required="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Repeat Typed" />
 
 
 

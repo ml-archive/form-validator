@@ -3,6 +3,7 @@
 
     <declare-styleable name="ValidatableEditText">
         <attr name="required" format="boolean"/>
+        <attr name="identicalTo" format="reference"/>
         <attr name="passwordStreinght" format="enum">
             <enum name="weak" value="0"/>
             <enum name="medium" value="1"/>

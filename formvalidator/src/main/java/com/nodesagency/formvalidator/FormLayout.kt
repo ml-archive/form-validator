@@ -16,7 +16,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
     private var childrenResolved: Boolean = false
 
 
-    var listener: FormValidListener? = null
+    private var listener: FormValidListener? = null
 
     fun setFormValidListener(block: (Boolean) -> Unit) {
         listener = object : FormValidListener {
@@ -24,6 +24,12 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
                 block.invoke(isValid)
             }
         }
+    }
+
+
+
+    fun validateAll() : Boolean {
+        return validatableViews.all { it.validate() }
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -50,6 +56,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
                 else -> listOf()
             }}.toList().flatten()
     }
+
 
 
 
