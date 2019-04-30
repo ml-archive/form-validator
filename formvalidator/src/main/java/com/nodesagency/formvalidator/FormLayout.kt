@@ -11,7 +11,11 @@ import com.nodesagency.formvalidator.base.Validatable
 import com.nodesagency.formvalidator.utils.Logger
 
 class FormLayout @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyle: Int = 0) : FrameLayout(context, attributeSet, defStyle), FieldValidChangeListener {
+
     private lateinit var validatableViews: List<Validatable>
+    private var childrenResolved: Boolean = false
+
+
     var listener: FormValidListener? = null
 
     fun setFormValidListener(block: (Boolean) -> Unit) {
@@ -24,9 +28,13 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        validatableViews = resolveValidatableChildren(this)
-        validatableViews.forEach { it.addFieldValidListener(this) }
-        Logger.log("Form Inputs count: ${validatableViews.count()}")
+
+        if (!childrenResolved) {
+            validatableViews = resolveValidatableChildren(this)
+            validatableViews.forEach { it.addFieldValidListener(this) }
+            childrenResolved = true
+            Logger.log("Form Inputs count: ${validatableViews.count()}")
+        }
     }
 
     override fun onFieldValidityChanged(validatable: Validatable, isValid: Boolean) {
