@@ -46,9 +46,35 @@
 
             <com.nodesagency.formvalidator.ValidatableEditText
                 android:id="@+id/editText2"
+                android:inputType="textPersonName"
+                app:required="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Not empty" />
+                android:hint="Required" />
+
+
+
+            <com.nodesagency.formvalidator.ValidatableEditText
+                android:id="@+id/editText3"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                app:required="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Required weak password" />
+
+
+
+            <com.nodesagency.formvalidator.ValidatableEditText
+                android:id="@+id/editText4"
+                android:inputType="textPassword"
+                app:passwordStreinght="medium"
+                android:imeOptions="actionDone"
+                app:required="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Required medium passowrd" />
+
 
 
             <Button
@@ -60,6 +86,10 @@
 
 
     </com.nodesagency.formvalidator.FormLayout>
+
+
+
+
 
 
 </LinearLayout>

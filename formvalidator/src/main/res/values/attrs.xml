@@ -2,6 +2,12 @@
 <resources>
 
     <declare-styleable name="ValidatableEditText">
+        <attr name="required" format="boolean"/>
+        <attr name="passwordStreinght" format="enum">
+            <enum name="weak" value="0"/>
+            <enum name="medium" value="1"/>
+            <enum name="strong" value="2"/>
+        </attr>
     </declare-styleable>
 
 </resources>
