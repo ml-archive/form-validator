@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">formvalidator</string>
+    <string name="error_invalid_email">Email is invalid</string>
+    <string name="error_invalid_password_weak">Password must contain at least 6 symnboks</string>
+    <string name="error_invalid_password_medium">Password must contain 8 symbols with at least one lowercase letter and one uppercase letter</string>
+    <string name="error_invalid_password_strong">Password must contain min 8 symbols with at least one lowercase letter, uppercase letter, number and special symbol</string>
+    <string name="error_invalid_name">Invalid name</string>
+    <string name="errror_invalid_number">Number is invalid</string>
+    <string name="error_mismatch">Two fields mismatch</string>
+    <string name="error_required">This field is required</string>
+    <string name="error_invalid">Field is invalid</string>
 </resources>

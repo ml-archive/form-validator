@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.nodesagency.formvalidator.base.ErrorMessageHandler
 import com.nodesagency.formvalidator.base.ValidatableFieldListener
 import com.nodesagency.formvalidator.base.Validatable
 import com.nodesagency.formvalidator.utils.Logger
@@ -35,12 +36,35 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         init(attrs)
     }
 
-    private var validator: TextInputValidator = OptionalValidator()
-    private var requiredValidator: TextInputValidator = OptionalValidator()
-    private val listenerValidatables: MutableList<ValidatableFieldListener> = mutableListOf()
+    /**
+     * Main content validator
+     */
+    var validator: TextInputValidator = defaultValidator()
+
+
+    /**
+     * Specifies if the input is required for this field
+     */
+    var isRequired: Boolean = false
+        set(value) {
+            field = value
+            requiredValidator = RequiredValidator(isRequired)
+        }
+
+
+    override var errorMessageHandler: ErrorMessageHandler = DefaultErrorMessageHandler(context)
+
+    /**
+     *
+     */
+    var isValid: Boolean = false
+        private set(value) {
+            field = value
+        }
 
     private var identicalTo: Int = 0
-    private var isValid: Boolean = false
+    private var requiredValidator: TextInputValidator = defaultValidator()
+    private val listenerValidatables: MutableList<ValidatableFieldListener> = mutableListOf()
     private var passwordStreinght: PasswordStreinght = PasswordStreinght.Weak
 
 
@@ -52,6 +76,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             val validated = validate()
+            clearError()
             if (validated != isValid) {
                 isValid = validated
                 listenerValidatables.forEach { it.onFieldValidityChanged(this@ValidatableEditText, validated) }
@@ -65,10 +90,23 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         attrs?.let(this::initFromAttributes)
         addTextChangedListener(textWatcher)
         setOnEditorActionListener(this)
-
         validator = getValidatorFromInputType()
-
+        Logger.log("Active Validator $validator")
     }
+
+    private fun initFromAttributes(attributeSet: AttributeSet) {
+        val attrs = context.obtainStyledAttributes(attributeSet, R.styleable.ValidatableEditText, 0, 0)
+
+        val passwordStreinghtInt = attrs.getInt(R.styleable.ValidatableEditText_passwordStreinght, 0)
+
+        isRequired = attrs.getBoolean(R.styleable.ValidatableEditText_required, false)
+        identicalTo = attrs.getResourceId(R.styleable.ValidatableEditText_identicalTo, 0)
+
+        passwordStreinght = PasswordStreinght.values()[passwordStreinghtInt]
+
+        attrs.recycle()
+    }
+
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -85,7 +123,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     override fun onEditorAction(tv: TextView?, actionId: Int, keyEvent: KeyEvent?): Boolean {
         // User is done with this field, validate the field and show if the input is valid
         if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
-          listenerValidatables.forEach { it.onInputConfirmed(this) }
+            listenerValidatables.forEach { it.onInputConfirmed(this) }
         }
         return false
     }
@@ -93,14 +131,25 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
 
     override fun validate(showError: Boolean): Boolean {
         val text = text?.toString() ?: ""
-        val isValid = requiredValidator.validate(text) && validator.validate(text)
 
-        Logger.log("isVlaid: $isValid, Show Error $showError")
-        if (!isValid && showError) {
-            textInputLayout?.error = "Error"
+        val requirementValidated = requiredValidator.validate(text)
+        val contentValidated = validator.validate(text)
+
+        if (showError) {
+            // Check if field is required first
+            if (!requirementValidated) {
+                showError(errorMessageHandler.handleTextValidatorError(requiredValidator))
+                return false
+            }
+
+            // Continue with the primary validator
+            if (!contentValidated) {
+                showError(errorMessageHandler.handleTextValidatorError(validator))
+                return false
+            }
         }
 
-        return isValid
+        return requirementValidated && contentValidated
     }
 
     override fun addFieldValidListener(listenerValidatable: ValidatableFieldListener) {
@@ -108,19 +157,13 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     }
 
 
-    private fun initFromAttributes(attributeSet: AttributeSet) {
-        val attrs = context.obtainStyledAttributes(attributeSet, R.styleable.ValidatableEditText, 0, 0)
-
-        val required = attrs.getBoolean(R.styleable.ValidatableEditText_required, false)
-        val passwordStreinghtInt = attrs.getInt(R.styleable.ValidatableEditText_passwordStreinght, 0)
-
-        identicalTo = attrs.getResourceId(R.styleable.ValidatableEditText_identicalTo, 0)
-        requiredValidator = if (required) RequiredValidator() else OptionalValidator()
-        passwordStreinght = PasswordStreinght.values()[passwordStreinghtInt]
-
-        attrs.recycle()
+    override fun showError(message: String) {
+        textInputLayout?.error = message
     }
 
+    override fun clearError() {
+        textInputLayout?.error = null
+    }
 
     private fun getValidatorFromInputType(): TextInputValidator {
         return when (inputType) {
@@ -128,7 +171,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
             InputType.TYPE_CLASS_NUMBER -> NumberValidator()
             InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD -> PasswordValidator(passwordStreinght)
             InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PERSON_NAME -> NameValidator()
-            else -> OptionalValidator()
+            else -> defaultValidator()
         }
     }
 
@@ -154,5 +197,5 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         } else null
     }
 
-
+    private fun defaultValidator() = RequiredValidator(false)
 }

@@ -3,6 +3,8 @@ package com.nodesagency.formvalidator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
+import com.nodesagency.formvalidator.base.ErrorMessageHandler
+import com.nodesagency.formvalidator.validators.TextInputValidator
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

@@ -1,7 +1,7 @@
 package com.nodesagency.formvalidator.validators
 
-class RequiredValidator: TextInputValidator(){
+class RequiredValidator(private val isRequired: Boolean): TextInputValidator(){
     override fun validate(value: String): Boolean {
-        return value.isNotBlank()
+        return if (isRequired) value.isNotBlank() else true
     }
 }

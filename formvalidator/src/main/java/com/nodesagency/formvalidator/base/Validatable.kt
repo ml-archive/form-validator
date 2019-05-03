@@ -1,9 +1,9 @@
 package com.nodesagency.formvalidator.base
 
-import com.nodesagency.formvalidator.validators.OptionalValidator
-import com.nodesagency.formvalidator.validators.TextInputValidator
 
 interface Validatable  {
+
+    var errorMessageHandler: ErrorMessageHandler
 
     /**
      * Validates the the field
@@ -17,4 +17,18 @@ interface Validatable  {
      * @param listenerValidatable listener to add
      */
     fun addFieldValidListener(listenerValidatable: ValidatableFieldListener)
+
+
+    /**
+     * Displays a field error message
+     * @param message - error message to be displayed
+     */
+    fun showError(message: String)
+
+    /**
+     * Removes error message
+     */
+    fun clearError()
+
+
 }
