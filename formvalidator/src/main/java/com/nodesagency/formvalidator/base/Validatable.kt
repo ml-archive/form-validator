@@ -1,5 +1,8 @@
 package com.nodesagency.formvalidator.base
 
+import com.nodesagency.formvalidator.validators.OptionalValidator
+import com.nodesagency.formvalidator.validators.TextInputValidator
+
 interface Validatable  {
 
     /**
