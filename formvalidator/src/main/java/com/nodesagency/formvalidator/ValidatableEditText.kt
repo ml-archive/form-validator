@@ -59,10 +59,12 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
             field = value
         }
 
+    var passwordStreinght: PasswordStreinght = PasswordStreinght.Weak
+
+
     private var identicalTo: Int = 0
     private var requiredValidator: TextInputValidator = defaultValidator()
     private val listenerValidatables: MutableList<ValidatableFieldListener> = mutableListOf()
-    private var passwordStreinght: PasswordStreinght = PasswordStreinght.Weak
 
 
     private var textInputLayout: TextInputLayout? = null
