@@ -41,7 +41,6 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         val attrs = context.obtainStyledAttributes(attributeSet, R.styleable.FormLayout)
         val modeInt = attrs.getInt(R.styleable.FormLayout_errorHandling, 0)
         errorHandlerMode = ErrorHandlerMode.values()[modeInt]
-        Logger.log("Erorr: $errorHandlerMode")
         attrs.recycle()
     }
 
@@ -90,7 +89,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
      */
     fun validateAll(): Boolean {
         return if (!childrenResolved) false
-        else validatableViews.all { it.validate(true) }
+        else validatableViews.also { it.forEach { it.clearError() } }.all { it.validate(true) }
     }
 
     /**
@@ -116,8 +115,20 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         }
     }
 
+    /**
+     * Enum to handle how the errors are gonna be displayed
+     */
     enum class ErrorHandlerMode {
-        Automatic, Manual
+
+        /**
+         * Error, if any, will be shwown after input confirmation, i.e IME action
+         */
+        Automatic,
+
+        /**
+         * Error will not be shown until validateAll() is triggered
+         */
+        Manual
     }
 
 

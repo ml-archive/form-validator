@@ -54,9 +54,6 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
 
     override var errorMessageHandler: ErrorMessageHandler = DefaultErrorMessageHandler(context)
 
-    /**
-     *
-     */
     var isValid: Boolean = false
         private set(value) {
             field = value
