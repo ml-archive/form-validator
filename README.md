@@ -9,7 +9,7 @@ Library to handle validation of input fields.
 
 
 ## ValidatableEditText
-`ValidatableEditText` allows to validate one input field. It is a subclass of the `TextInputEditText` from the material making it easy to use with the `TextInputLayout`. By specifying the `inputType`, it will try to automatically configure the validation logic. Currently supported `inputTypes`:
+`ValidatableEditText` allows to validate one input field. It is a subclass of the `TextInputEditText` from the material library making it easy to use with the `TextInputLayout`. By specifying the `inputType`, it will try to automatically configure the validation logic. Currently supported `inputTypes`:
   - `textEmailAdrres`
   - `textPersonName`
   - `number`
@@ -91,7 +91,7 @@ editText1.validator = object : TextInputValidator() {
                <com.nodesagency.formvalidator.ValidatableEditText
                    android:id="@+id/editText1"
                    app:required="true"
-                   android:inputType=""
+                   android:inputType="textEmailAdress"
                    android:layout_width="match_parent"
                    android:layout_height="match_parent" />
 
