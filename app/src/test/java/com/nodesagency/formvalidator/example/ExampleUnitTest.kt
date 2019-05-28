@@ -1,4 +1,4 @@
-package com.nodesagency.formvalidator
+package com.nodesagency.formvalidator.example
 
 import org.junit.Test
 

@@ -6,150 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".example.MainActivity">
 
 
-    <com.nodesagency.formvalidator.FormLayout
-        android:id="@+id/form"
-        app:errorHandling="automatic"
+
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Automatic valididy handling" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email">
-
-
-                <com.nodesagency.formvalidator.ValidatableEditText
-                    android:id="@+id/editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <com.nodesagency.formvalidator.ValidatableEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="number"
-                    android:inputType="number" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.nodesagency.formvalidator.ValidatableEditText
-                android:id="@+id/editText2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Required Name"
-                android:inputType="textPersonName"
-                app:required="true" />
-
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-
-    </com.nodesagency.formvalidator.FormLayout>
-
-
-    <com.nodesagency.formvalidator.FormLayout
-        android:id="@+id/form2"
-        app:errorHandling="manual"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Manual Handling" />
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:hint="email">
-
-                <com.nodesagency.formvalidator.ValidatableEditText
-
-                    android:id="@+id/editText1"
-                    app:required="true"
-                    android:inputType="textEmailAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password">
-
-                <com.nodesagency.formvalidator.ValidatableEditText
-                    android:id="@+id/passwordEt"
-                    app:required="true"
-                    android:inputType="textPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Repeat password">
-
-                <com.nodesagency.formvalidator.ValidatableEditText
-                    app:identicalTo="@id/passwordEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <Button
-                android:id="@+id/createBtn"
-                android:text="Create account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-
-    </com.nodesagency.formvalidator.FormLayout>
-
+        app:menu="@menu/bottom_nav_menu"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
