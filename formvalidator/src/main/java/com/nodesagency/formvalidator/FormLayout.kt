@@ -52,12 +52,6 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         }
     }
 
-
-    fun setFormErrorHandler(errorMessageHandler: ErrorMessageHandler) {
-        postChildrenAction { validatableViews.forEach { it.errorMessageHandler = errorMessageHandler } }
-    }
-
-
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
         if (!childrenResolved) {

@@ -27,8 +27,18 @@ class CustomFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupForm()
+        setupListeners()
     }
 
+    private fun setupListeners() {
+        submitBtn.setOnClickListener {
+            if (customForm.validateAll()) {
+                showToast("Looks fine!")
+            } else {
+                showToast("Somethings wrong")
+            }
+        }
+    }
 
     private fun setupForm() {
 
@@ -43,6 +53,9 @@ class CustomFormFragment : Fragment() {
             }
         }
 
+        validatableEt1.errorMessage = "Totally wrong"
+        validatableEt2.requiredMessage = "Required, doctor's orders"
+
         validatableEt2.validator = TextInputValidator {
             try {
                 it.toInt()
@@ -51,7 +64,6 @@ class CustomFormFragment : Fragment() {
                 false
             }
         }
-
 
     }
 

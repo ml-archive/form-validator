@@ -5,5 +5,3 @@ fun TextInputValidator(validatorBlock: (String) -> Boolean) = object : TextInput
         return validatorBlock.invoke(value)
     }
 }
-
-

@@ -37,6 +37,8 @@
             <com.nodesagency.formvalidator.ValidatableEditText
                 android:inputType="number"
                 app:required="true"
+                app:requiredMessage="Please enter this man"
+                app:errorMessage="This doesn't feel right"
                 android:id="@+id/validatableEt2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
