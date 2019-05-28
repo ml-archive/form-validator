@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.nodesagency.formvalidator.base.ErrorMessageHandler
+import com.nodesagency.formvalidator.base.ErrorMessageListener
 import com.nodesagency.formvalidator.base.ValidatableFieldListener
 import com.nodesagency.formvalidator.base.Validatable
 import com.nodesagency.formvalidator.utils.Logger
@@ -53,6 +54,8 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
 
 
     override var errorMessageHandler: ErrorMessageHandler = DefaultErrorMessageHandler(context)
+
+    override var errorMessageListener: ErrorMessageListener? = null
 
     var isValid: Boolean = false
         private set(value) {
@@ -157,11 +160,18 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
 
 
     override fun showError(message: String) {
+        errorMessageListener?.onError(this, message)
         textInputLayout?.error = message
     }
 
     override fun clearError() {
         textInputLayout?.error = null
+    }
+
+
+    override fun clear() {
+        textInputLayout?.error = null
+        text?.clear()
     }
 
     private fun getValidatorFromInputType(): TextInputValidator {

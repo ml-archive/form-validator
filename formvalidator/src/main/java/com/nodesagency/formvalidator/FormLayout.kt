@@ -1,14 +1,12 @@
 package com.nodesagency.formvalidator
 
+import android.content.ContentResolver
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.nodesagency.formvalidator.base.ErrorMessageHandler
+import com.nodesagency.formvalidator.base.*
 import com.nodesagency.formvalidator.utils.asSequence
-import com.nodesagency.formvalidator.base.ValidatableFieldListener
-import com.nodesagency.formvalidator.base.FormValidListener
-import com.nodesagency.formvalidator.base.Validatable
 import com.nodesagency.formvalidator.utils.Action
 import com.nodesagency.formvalidator.utils.Logger
 
@@ -57,6 +55,10 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         postChildrenAction { validatableViews.forEach { it.errorMessageHandler = errorMessageHandler } }
     }
 
+    fun setErrorMessageListener(errorMessageListener: ErrorMessageListener) {
+        postChildrenAction { validatableViews.forEach { it.errorMessageListener = errorMessageListener } }
+    }
+
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
@@ -90,6 +92,15 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
     fun validateAll(): Boolean {
         return if (!childrenResolved) false
         else validatableViews.also { it.forEach { it.clearError() } }.all { it.validate(true) }
+    }
+
+    /**
+     * Clear all form fields and errors
+     */
+    fun clear() {
+        for (view in validatableViews) {
+            view.clear()
+        }
     }
 
     /**

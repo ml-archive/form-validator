@@ -28,7 +28,7 @@ Library to handle validation of input fields.
 #### Example
 
 ##### Layout declaration
-```
+```xml
 <com.google.android.material.textfield.TextInputLayout
 
                android:layout_width="match_parent"
@@ -48,7 +48,7 @@ Library to handle validation of input fields.
 
 ##### In Activity/Fragments
 
-```
+```kotlin
 // specify a custom Validator
 editText1.required = true
 editText1.validator = object : TextInputValidator() {
@@ -74,7 +74,7 @@ editText1.validator = object : TextInputValidator() {
 
 #### Layout declaration
 
-```
+```xml
 <com.nodesagency.formvalidator.FormLayout
        android:id="@+id/form2"
        app:errorHandling="manual"
@@ -118,7 +118,7 @@ editText1.validator = object : TextInputValidator() {
 ```
 
 #### In Activity/Fragments
-```
+```kotlin
 // Form state listener
 form.setFormValidListener { isFormValid ->
           // update ui to reflect that
