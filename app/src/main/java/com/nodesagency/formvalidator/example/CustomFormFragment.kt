@@ -1,11 +1,14 @@
 package com.nodesagency.formvalidator.example
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.nodesagency.formvalidator.base.FormErrorMessageHandler
+import com.nodesagency.formvalidator.base.FormErrorMessageResolver
 import com.nodesagency.formvalidator.validators.TextInputValidator
 import kotlinx.android.synthetic.main.fragment_custom_form.*
 import java.lang.NumberFormatException
@@ -13,7 +16,7 @@ import java.lang.NumberFormatException
 /**
  * A simple [Fragment] subclass.
  */
-class CustomFormFragment : Fragment() {
+class CustomFormFragment : Fragment(), FormErrorMessageHandler, FormErrorMessageResolver{
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,24 +50,37 @@ class CustomFormFragment : Fragment() {
         }
 
         // Custom Validators
-        validatableEt1.validator = object : TextInputValidator() {
-            override fun validate(value: String): Boolean {
-                return value.length == 5
-            }
-        }
+        validatableEt1.validator = TextInputValidator { it.length == 5 }
 
+
+        // Custom Error Messages
         validatableEt1.errorMessage = "Totally wrong"
         validatableEt2.requiredMessage = "Required, doctor's orders"
 
-        validatableEt2.validator = TextInputValidator {
-            try {
-                it.toInt()
-                it.length == 4
-            } catch (nfe: NumberFormatException) {
-                false
-            }
+        validatableEt2.validator = CustomValidator()
+
+        customForm.setErrorMessagesHandler(this)
+        customForm.setErrorMessageResolver(this)
+
+        validatableEt3.setErrorHandler {
+            // Act when field error received for this field
+            AlertDialog.Builder(context)
+                .setTitle("Error")
+                .setMessage(it)
+                .show()
         }
 
     }
 
+    override fun onFieldError(view: View, message: String) {
+        when(view.id) {
+            R.id.validatableEt1 -> showToast(message)
+            R.id.validatableEt2 -> showSnackbar(message)
+            else -> AlertDialog.Builder(context).setTitle("Error").setMessage(message).show()
+        }
+    }
+
+    override fun resolveValidatorErrorMessage(validator: TextInputValidator): String {
+        return "This is custom error"
+    }
 }

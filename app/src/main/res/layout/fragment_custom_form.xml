@@ -45,19 +45,12 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.nodesagency.formvalidator.ValidatableEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
 
         <com.nodesagency.formvalidator.ValidatableEditText
+            android:id="@+id/validatableEt3"
+            android:hint="Not empty"
+            android:inputType="text"
+            app:required="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

@@ -5,16 +5,16 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.nodesagency.formvalidator.base.ErrorMessageHandler
-import com.nodesagency.formvalidator.base.ErrorMessageListener
+import com.nodesagency.formvalidator.base.FormErrorMessageResolver
+import com.nodesagency.formvalidator.base.FormErrorMessageHandler
 import com.nodesagency.formvalidator.base.ValidatableFieldListener
 import com.nodesagency.formvalidator.base.Validatable
 import com.nodesagency.formvalidator.utils.Logger
@@ -57,9 +57,9 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     var requiredMessage: String? = null
     var errorMessage: String? = null
 
-    override var errorMessageHandler: ErrorMessageHandler = DefaultErrorMessageHandler(context)
+    override var formErrorMessageResolver: FormErrorMessageResolver = DefaultErrorMessageHandler(context)
 
-    override var errorMessageListener: ErrorMessageListener? = null
+    override var formErrorMessageHandler: FormErrorMessageHandler? = null
 
     var isValid: Boolean = false
         private set(value) {
@@ -149,14 +149,14 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         if (showError) {
             // Check if field is required first
             if (!requirementValidated) {
-                val message = requiredMessage ?: errorMessageHandler.handleTextValidatorError(requiredValidator)
+                val message = requiredMessage ?: formErrorMessageResolver.resolveValidatorErrorMessage(requiredValidator)
                 showError(message)
                 return false
             }
 
             // Continue with the primary validator
             if (!contentValidated) {
-                val message = errorMessage ?: errorMessageHandler.handleTextValidatorError(validator)
+                val message = errorMessage ?: formErrorMessageResolver.resolveValidatorErrorMessage(validator)
                 showError(message)
                 return false
             }
@@ -171,7 +171,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
 
 
     override fun showError(message: String) {
-        errorMessageListener?.onError(this, message)
+        formErrorMessageHandler?.onFieldError(this, message)
         textInputLayout?.error = message
     }
 
@@ -183,6 +183,14 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     override fun clear() {
         textInputLayout?.error = null
         text?.clear()
+    }
+
+    fun setErrorHandler(block: (String) -> Unit) {
+        formErrorMessageHandler = object : FormErrorMessageHandler {
+            override fun onFieldError(view: View, message: String) {
+                block.invoke(message)
+            }
+        }
     }
 
     private fun getValidatorFromInputType(): TextInputValidator {

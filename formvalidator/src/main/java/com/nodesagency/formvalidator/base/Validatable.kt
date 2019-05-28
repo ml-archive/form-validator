@@ -3,9 +3,9 @@ package com.nodesagency.formvalidator.base
 
 interface Validatable {
 
-    var errorMessageHandler: ErrorMessageHandler
+    var formErrorMessageResolver: FormErrorMessageResolver
 
-    var errorMessageListener: ErrorMessageListener?
+    var formErrorMessageHandler: FormErrorMessageHandler?
 
     /**
      * Validates the the field
@@ -33,7 +33,7 @@ interface Validatable {
     fun clearError()
 
     /**
-     * Clears the field
+     * Clears the field input
      */
     fun clear()
 

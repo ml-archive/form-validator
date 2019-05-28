@@ -1,6 +1,5 @@
 package com.nodesagency.formvalidator
 
-import android.content.ContentResolver
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
@@ -51,12 +50,13 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
     }
 
 
-    fun setFormErrorHandler(errorMessageHandler: ErrorMessageHandler) {
-        postChildrenAction { validatableViews.forEach { it.errorMessageHandler = errorMessageHandler } }
+
+    fun setErrorMessageResolver(formErrorMessageResolver: FormErrorMessageResolver) {
+        postChildrenAction { validatableViews.forEach { it.formErrorMessageResolver = formErrorMessageResolver } }
     }
 
-    fun setErrorMessageListener(errorMessageListener: ErrorMessageListener) {
-        postChildrenAction { validatableViews.forEach { it.errorMessageListener = errorMessageListener } }
+    fun setErrorMessagesHandler(formErrorMessageHandler: FormErrorMessageHandler) {
+        postChildrenAction { validatableViews.forEach { it.formErrorMessageHandler = formErrorMessageHandler } }
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -134,7 +134,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
     enum class ErrorHandlerMode {
 
         /**
-         * Error, if any, will be shwown after input confirmation, i.e IME action
+         * Error, if any, will be shown after input confirmation, i.e IME action
          */
         Automatic,
 

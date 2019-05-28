@@ -2,12 +2,12 @@ package com.nodesagency.formvalidator.base
 
 import com.nodesagency.formvalidator.validators.TextInputValidator
 
-interface ErrorMessageHandler {
+interface FormErrorMessageResolver {
 
     /**
-     * @param textInputValidator - validator thant caught an error
+     * @param validator - validator thatt caught an error
      * @return the error message specific to validator specified
      */
-    fun handleTextValidatorError(textInputValidator: TextInputValidator) : String
+    fun resolveValidatorErrorMessage(validator: TextInputValidator) : String
 
 }

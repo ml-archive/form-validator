@@ -1,14 +1,14 @@
 package com.nodesagency.formvalidator
 
 import android.content.Context
-import com.nodesagency.formvalidator.base.ErrorMessageHandler
+import com.nodesagency.formvalidator.base.FormErrorMessageResolver
 import com.nodesagency.formvalidator.validators.*
 import com.nodesagency.formvalidator.validators.password.PasswordStreinght
 import com.nodesagency.formvalidator.validators.password.PasswordValidator
 
-class DefaultErrorMessageHandler(private val context: Context) : ErrorMessageHandler {
+class DefaultErrorMessageHandler(private val context: Context) : FormErrorMessageResolver {
 
-    override fun handleTextValidatorError(textInputValidator: TextInputValidator): String {
+    override fun resolveValidatorErrorMessage(textInputValidator: TextInputValidator): String {
         val resource = when(textInputValidator) {
             is EmailValidator -> R.string.error_invalid_email
             is NumberValidator -> R.string.errror_invalid_number
