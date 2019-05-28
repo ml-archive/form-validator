@@ -31,11 +31,12 @@
 
 
     <com.nodesagency.formvalidator.FormLayout
+        android:id="@+id/signupForm"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/signupBtn"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
 
@@ -102,7 +103,7 @@
 
     <Button
         android:enabled="false"
-        android:id="@+id/button"
+        android:id="@+id/signupBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create Account"

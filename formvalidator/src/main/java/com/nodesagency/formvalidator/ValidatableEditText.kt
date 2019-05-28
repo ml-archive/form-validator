@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.KeyEvent
 import android.view.ViewGroup
 import android.view.ViewParent
@@ -157,6 +158,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
 
 
     override fun showError(message: String) {
+        Logger.log("Show Error $message")
         textInputLayout?.error = message
     }
 

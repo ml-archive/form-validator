@@ -89,7 +89,10 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
      */
     fun validateAll(): Boolean {
         return if (!childrenResolved) false
-        else validatableViews.also { it.forEach { it.clearError() } }.all { it.validate(true) }
+        else validatableViews
+            .also { it.forEach { it.clearError() } }
+            .map { it.validate(true) }
+            .all { it }
     }
 
     /**
