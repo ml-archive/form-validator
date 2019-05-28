@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.nodesagency.formvalidator.FormLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/customForm"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomFormFragment">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:hint="Exactly 5 symbols"
+            android:layout_height="wrap_content">
+
+            <com.nodesagency.formvalidator.ValidatableEditText
+                android:id="@+id/validatableEt1"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:hint="4 digit number"
+
+            android:layout_height="wrap_content">
+
+            <com.nodesagency.formvalidator.ValidatableEditText
+                android:inputType="number"
+                app:required="true"
+                android:id="@+id/validatableEt2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.nodesagency.formvalidator.ValidatableEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.nodesagency.formvalidator.ValidatableEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <Button
+            android:enabled="true"
+            android:id="@+id/submitBtn"
+            android:text="Submit Forrm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+</com.nodesagency.formvalidator.FormLayout>

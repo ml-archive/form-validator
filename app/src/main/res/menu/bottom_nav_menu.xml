@@ -8,6 +8,11 @@
     <item
         android:icon="@drawable/ic_dashboard_black_24dp"
             android:id="@+id/menuLogin"
-            android:title="@string/login"/>
+        android:title="@string/login"/>
+
+    <item
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:id="@+id/menuCustom"
+        android:title="@string/custom"/>
 
 </menu>

@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId) {
                 R.id.menuLogin -> showFragment(LoginFragment())
                 R.id.menuSignup -> showFragment(SignupFragment())
+                R.id.menuCustom -> showFragment(CustomFormFragment())
             }
             true
         }
