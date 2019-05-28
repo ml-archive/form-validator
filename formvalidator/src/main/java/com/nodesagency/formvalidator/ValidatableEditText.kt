@@ -181,7 +181,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
 
 
     override fun clear() {
-        textInputLayout?.error = null
+        clearError()
         text?.clear()
     }
 

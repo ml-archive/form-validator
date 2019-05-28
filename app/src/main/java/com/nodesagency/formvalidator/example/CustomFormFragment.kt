@@ -41,6 +41,10 @@ class CustomFormFragment : Fragment(), FormErrorMessageHandler, FormErrorMessage
                 showToast("Somethings wrong")
             }
         }
+
+        customFormClearBtn.setOnClickListener {
+            customForm.clear()
+        }
     }
 
     private fun setupForm() {
