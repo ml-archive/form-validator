@@ -1,3 +1,10 @@
+# Whats new
+  - Error messages can be provided as attrbutes
+  - Ability to provide custom action when validation error occures
+  - Better Lib Examples
+  - Clear form functionality
+
+
 # Form Validator
 Library to handle validation of input fields.
 
@@ -22,7 +29,6 @@ Library to handle validation of input fields.
   | --- | --- | --- |
   | `app:passwordStreinght` | When `inputType` set to `textPassword`, this Attribute can further modify how strong the password must be. Can either be set as `weak`, `medium` or `strong` | `weak` |
   | `app:identicalTo` | Allows to reference another `ValidatableEditText`, telling the view that its input should match to the referenced view's input  | `0` |
-  | `app:identicalTo` | Allows to reference another `ValidatableEditText`, telling the view that its input should match to the referenced view's input  | `none` |
   | `app:required` | Specifies if the input is required  | `false` |
 
 #### Example
