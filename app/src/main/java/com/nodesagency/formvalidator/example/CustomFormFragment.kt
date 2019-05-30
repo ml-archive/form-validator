@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.nodesagency.formvalidator.base.BaseValidator
 import com.nodesagency.formvalidator.base.FormErrorMessageHandler
 import com.nodesagency.formvalidator.base.FormErrorMessageResolver
 import com.nodesagency.formvalidator.validators.TextInputValidator
@@ -84,7 +85,7 @@ class CustomFormFragment : Fragment(), FormErrorMessageHandler, FormErrorMessage
         }
     }
 
-    override fun resolveValidatorErrorMessage(validator: TextInputValidator): String {
+    override fun resolveValidatorErrorMessage(validator: BaseValidator<*>): String {
         return "This is custom error"
     }
 }

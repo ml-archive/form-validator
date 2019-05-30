@@ -9,4 +9,5 @@
     <string name="error_mismatch">Two fields mismatch</string>
     <string name="error_required">This field is required</string>
     <string name="error_invalid">Field is invalid</string>
+    <string name="error_checkbox">This field must be checked</string>
 </resources>

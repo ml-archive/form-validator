@@ -7,6 +7,9 @@ interface Validatable {
 
     var formErrorMessageHandler: FormErrorMessageHandler?
 
+
+    var isRequired: Boolean
+
     /**
      * Validates the the field
      * @return true if field is valid, false otherwise

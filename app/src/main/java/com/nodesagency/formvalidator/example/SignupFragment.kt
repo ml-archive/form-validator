@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.nodesagency.formvalidator.base.FormErrorMessageHandler
 import kotlinx.android.synthetic.main.fragment_signup.*
 
 
@@ -27,14 +28,24 @@ class SignupFragment : Fragment() {
 
     private fun setupForm() {
 
+
         // Listen to form validity
         signupForm.setFormValidListener {
-            signupBtn.isEnabled = it
+
         }
 
         signupBtn.setOnClickListener {
-            showToast("Create")
+            if (signupForm.validateAll())
+                showToast("Create")
         }
+
+
+        checkbox.formErrorMessageHandler = object : FormErrorMessageHandler {
+            override fun onFieldError(view: View, message: String) {
+                showToast("Need to check checkbox")
+            }
+        }
+
     }
 
 

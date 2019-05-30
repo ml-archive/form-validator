@@ -31,6 +31,7 @@
 
 
     <com.nodesagency.formvalidator.FormLayout
+        app:errorHandling="manual"
         android:id="@+id/signupForm"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -92,7 +93,10 @@
 
 
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <com.nodesagency.formvalidator.ValidatableCheckbox
+                app:required="true"
+                app:errorMessage="Please select this stuf"
+                android:id="@+id/checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Terms and Conditions" />
@@ -102,7 +106,6 @@
     </com.nodesagency.formvalidator.FormLayout>
 
     <Button
-        android:enabled="false"
         android:id="@+id/signupBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

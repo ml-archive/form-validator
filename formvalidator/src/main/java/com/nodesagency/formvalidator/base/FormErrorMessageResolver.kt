@@ -12,6 +12,6 @@ interface FormErrorMessageResolver {
      * @param validator - validator thatt caught an error
      * @return the error message specific to validator specified
      */
-    fun resolveValidatorErrorMessage(validator: TextInputValidator) : String
+    fun resolveValidatorErrorMessage(validator: BaseValidator<*>) : String
 
 }

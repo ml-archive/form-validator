@@ -47,7 +47,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     /**
      * Specifies if the input is required for this field
      */
-    var isRequired: Boolean = false
+    override var isRequired: Boolean = false
         set(value) {
             field = value
             requiredValidator = RequiredValidator(isRequired)

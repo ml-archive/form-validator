@@ -21,4 +21,10 @@
         </attr>
     </declare-styleable>
 
+
+    <declare-styleable name="ValidatableCheckbox">
+        <attr name="required" />
+        <attr name="errorMessage"/>
+    </declare-styleable>
+
 </resources>
