@@ -3,7 +3,9 @@
   - Ability to provide custom action when validation error occures
   - Better Lib Examples
   - Clear form functionality
-  - ValidatableEditText
+  - ValidatableCheckBox
+  - Validate edit text when losing focus
+  - `form.retrieveAll()` - to retrieve all the field values from the form as Map
   - "None" password streinght when its better to skip validation
 
 
