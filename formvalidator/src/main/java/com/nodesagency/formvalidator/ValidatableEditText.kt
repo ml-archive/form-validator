@@ -59,7 +59,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
             field = value
         }
 
-    var passwordStreinght: PasswordStreinght = PasswordStreinght.Weak
+    var passwordStreinght: PasswordStreinght = PasswordStreinght.None
 
 
     private var identicalTo: Int = 0

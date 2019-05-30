@@ -26,6 +26,7 @@ class DefaultErrorMessageHandler(private val context: Context) : ErrorMessageHan
             PasswordStreinght.Weak -> R.string.error_invalid_password_weak
             PasswordStreinght.Medium -> R.string.error_invalid_password_medium
             PasswordStreinght.Strong -> R.string.error_invalid_password_strong
+            PasswordStreinght.None -> 0
         }
     }
 }
