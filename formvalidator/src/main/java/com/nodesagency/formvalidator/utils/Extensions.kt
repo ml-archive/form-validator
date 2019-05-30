@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 
 
-typealias Action = () -> Unit
+internal typealias Action = () -> Unit
 
 
 internal fun ViewGroup.asSequence(): Sequence<View> = object : Sequence<View> {
