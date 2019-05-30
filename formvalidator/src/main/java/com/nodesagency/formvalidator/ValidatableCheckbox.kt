@@ -81,4 +81,8 @@ class ValidatableCheckbox : CheckBox, Validatable {
     override fun clear() {
         isChecked = false
     }
+
+    override fun value(): Pair<Int, Any?> {
+        return id to isChecked
+    }
 }

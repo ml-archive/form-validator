@@ -109,6 +109,15 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
             .all { it }
     }
 
+
+    /**
+     * Obtain all field values
+     * @return map with id:value pairs
+     */
+    fun retrieveAll() : Map<Int, Any?> {
+        return validatableViews.map { it.value() }.toMap()
+    }
+
     /**
      * Clear all form fields and errors
      */

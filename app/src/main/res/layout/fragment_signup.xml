@@ -54,6 +54,7 @@
                 android:hint="Email">
 
                 <com.nodesagency.formvalidator.ValidatableEditText
+                    android:id="@+id/emailEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -93,6 +94,7 @@
 
 
             <com.nodesagency.formvalidator.ValidatableCheckbox
+
                 app:required="true"
                 app:errorMessage="Please select this stuf"
                 android:id="@+id/checkbox"

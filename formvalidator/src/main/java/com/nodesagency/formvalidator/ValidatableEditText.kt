@@ -188,6 +188,10 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     }
 
 
+    override fun value(): Pair<Int, Any?> {
+        return id to text?.toString()
+    }
+
     override fun showError(message: String) {
         formErrorMessageHandler?.onFieldError(this, message)
         textInputLayout?.error = message

@@ -35,8 +35,9 @@ class SignupFragment : Fragment() {
         }
 
         signupBtn.setOnClickListener {
-            if (signupForm.validateAll())
-                showToast("Create")
+            if (signupForm.validateAll()) {
+                showToast("Create: ${signupForm.retrieveAll().toSignupRequest()}")
+            }
         }
 
 
@@ -48,5 +49,15 @@ class SignupFragment : Fragment() {
 
     }
 
+
+    data class SignupRequest(val email: String, val password: String, val terms: Boolean)
+
+    private fun Map<Int, Any?>.toSignupRequest() : SignupRequest {
+        return SignupRequest(
+            email = get(R.id.emailEt) as String,
+            password = get(R.id.passwordEt) as String,
+            terms = get(R.id.checkbox) as Boolean
+        )
+    }
 
 }
