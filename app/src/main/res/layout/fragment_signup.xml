@@ -107,6 +107,7 @@
     </com.nodesagency.formvalidator.FormLayout>
 
     <Button
+        android:enabled="false"
         android:id="@+id/signupBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

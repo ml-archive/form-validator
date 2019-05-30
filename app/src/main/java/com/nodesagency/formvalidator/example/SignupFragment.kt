@@ -31,19 +31,12 @@ class SignupFragment : Fragment() {
 
         // Listen to form validity
         signupForm.setFormValidListener {
-
+            signupBtn.isEnabled = it
         }
 
         signupBtn.setOnClickListener {
             if (signupForm.validateAll()) {
                 showToast("Create: ${signupForm.retrieveAll().toSignupRequest()}")
-            }
-        }
-
-
-        checkbox.formErrorMessageHandler = object : FormErrorMessageHandler {
-            override fun onFieldError(view: View, message: String) {
-                showToast("Need to check checkbox")
             }
         }
 
