@@ -25,7 +25,7 @@ import com.nodesagency.formvalidator.validators.password.PasswordValidator
 import com.nodesagency.formvalidator.validators.password.PasswordStreinght
 
 
-class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorActionListener {
+class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorActionListener, View.OnFocusChangeListener {
 
     constructor(context: Context) : super(context, null) {
         init(null)
@@ -116,6 +116,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         attrs?.let(this::initFromAttributes)
         addTextChangedListener(textWatcher)
         setOnEditorActionListener(this)
+        onFocusChangeListener = this
         validator = getValidatorFromInputType()
         Logger.log("Active Validator $validator")
     }
@@ -157,6 +158,11 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         return false
     }
 
+    override fun onFocusChange(view: View?, focused: Boolean) {
+        if (!focused) {
+            validatableListeners.forEach { it.onInputConfirmed(this) }
+        }
+    }
 
     override fun validate(showError: Boolean): Boolean {
         val text = text?.toString() ?: ""

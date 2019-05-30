@@ -17,4 +17,5 @@ interface ValidatableFieldListener {
      * @param validatable - caller
      */
     fun onInputConfirmed(validatable: Validatable)
+
 }
