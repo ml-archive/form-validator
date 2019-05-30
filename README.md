@@ -3,6 +3,8 @@
   - Ability to provide custom action when validation error occures
   - Better Lib Examples
   - Clear form functionality
+  - ValidatableEditText
+  - "None" password streinght when its better to skip validation
 
 
 # Form Validator
