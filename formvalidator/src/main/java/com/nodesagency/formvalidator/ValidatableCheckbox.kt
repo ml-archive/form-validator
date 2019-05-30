@@ -7,7 +7,7 @@ import com.nodesagency.formvalidator.base.FormErrorMessageHandler
 import com.nodesagency.formvalidator.base.FormErrorMessageResolver
 import com.nodesagency.formvalidator.base.Validatable
 import com.nodesagency.formvalidator.base.ValidatableFieldListener
-import com.nodesagency.formvalidator.utils.Logger
+import com.nodesagency.formvalidator.utils.DefaultErrorMessagesResolver
 import com.nodesagency.formvalidator.validators.CheckboxValidator
 
 class ValidatableCheckbox : CheckBox, Validatable {
@@ -33,7 +33,8 @@ class ValidatableCheckbox : CheckBox, Validatable {
     var errorMessage: String? = null
 
 
-    override var formErrorMessageResolver: FormErrorMessageResolver = DefaultErrorMessagesResolver(context)
+    override var formErrorMessageResolver: FormErrorMessageResolver =
+        DefaultErrorMessagesResolver(context)
 
     override var formErrorMessageHandler: FormErrorMessageHandler? = null
 

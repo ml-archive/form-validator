@@ -1,6 +1,7 @@
-package com.nodesagency.formvalidator
+package com.nodesagency.formvalidator.utils
 
 import android.content.Context
+import com.nodesagency.formvalidator.R
 import com.nodesagency.formvalidator.base.BaseValidator
 import com.nodesagency.formvalidator.base.FormErrorMessageResolver
 import com.nodesagency.formvalidator.validators.*
