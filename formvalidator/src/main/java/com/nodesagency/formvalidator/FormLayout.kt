@@ -18,7 +18,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
      * indicates whether form should automatically display all the errors
      */
     private var errorHandlerMode: ErrorHandlerMode = ErrorHandlerMode.Automatic
-    private var listener: FormValidListener? = null
+    private var listener: FormLayoutListener? = null
     private lateinit var validatableViews: List<Validatable>
     private var childrenResolved: Boolean = false
 
@@ -41,23 +41,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         attrs.recycle()
     }
 
-    fun setFormValidListener(block: (Boolean) -> Unit) {
-        listener = object : FormValidListener {
-            override fun onFormValidityChanged(isValid: Boolean) {
-                block.invoke(isValid)
-            }
-        }
-    }
 
-
-
-    fun setErrorMessageResolver(formErrorMessageResolver: FormErrorMessageResolver) {
-        postChildrenAction { validatableViews.forEach { it.formErrorMessageResolver = formErrorMessageResolver } }
-    }
-
-    fun setErrorMessagesHandler(formErrorMessageHandler: FormErrorMessageHandler) {
-        postChildrenAction { validatableViews.forEach { it.formErrorMessageHandler = formErrorMessageHandler } }
-    }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
@@ -82,6 +66,35 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         if (errorHandlerMode == ErrorHandlerMode.Automatic) {
             validatable.validate(true)
         }
+    }
+
+
+    /**
+     * Allows to react when the form validity status changes
+     * @param block - action that will be triggered when status changes
+     */
+    fun setFormValidListener(block: (Boolean) -> Unit) {
+        listener = object : FormLayoutListener {
+            override fun onFormValidityChanged(isValid: Boolean) {
+                block.invoke(isValid)
+            }
+        }
+    }
+
+    /**
+     * Allows to specify error messages resolver for all the validatable views in the form
+     * @param formErrorMessageResolver - custom resolver implementation
+     */
+    fun setErrorMessageResolver(formErrorMessageResolver: FormErrorMessageResolver) {
+        postChildrenAction { validatableViews.forEach { it.formErrorMessageResolver = formErrorMessageResolver } }
+    }
+
+    /**
+     * Allows to specify an error handler for all the validatable views in the form
+     * @param formErrorMessageHandler - custom handler implementation
+     */
+    fun setErrorMessagesHandler(formErrorMessageHandler: FormErrorMessageHandler) {
+        postChildrenAction { validatableViews.forEach { it.formErrorMessageHandler = formErrorMessageHandler } }
     }
 
     /**
@@ -118,6 +131,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
             }
         }.toList().flatten()
     }
+
 
 
     private fun postChildrenAction(action: Action) {

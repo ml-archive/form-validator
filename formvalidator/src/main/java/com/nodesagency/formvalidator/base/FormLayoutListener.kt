@@ -3,7 +3,7 @@ package com.nodesagency.formvalidator.base
 /**
  * Interface with FormLayout callbacks
  */
-interface FormValidListener {
+interface FormLayoutListener {
 
     /**
      * Called when form's status changes

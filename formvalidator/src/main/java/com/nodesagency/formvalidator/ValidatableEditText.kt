@@ -54,24 +54,41 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         }
 
 
+    /**
+     * Error message that will be show when the field is required, but the input is empty
+     * When not specified formErrorMessageResolver will be used to resolve the error message
+     */
     var requiredMessage: String? = null
+
+    /**
+     * Error message that will be shown when the input doesn't pass the main validator check (i.e email format)
+     * When not specified formErrorMessageResolver will be used to resolve the error message ( depending on validator type)
+     */
     var errorMessage: String? = null
 
-    override var formErrorMessageResolver: FormErrorMessageResolver = DefaultErrorMessageHandler(context)
+    override var formErrorMessageResolver: FormErrorMessageResolver = DefaultErrorMessagesResolver(context)
 
     override var formErrorMessageHandler: FormErrorMessageHandler? = null
 
+    /**
+     * Tells if field is valid
+     */
     var isValid: Boolean = false
         private set(value) {
             field = value
         }
 
+
+    /**
+     * Represents the password streinght
+     * Used when password validator is set
+     */
     var passwordStreinght: PasswordStreinght = PasswordStreinght.Weak
 
 
     private var identicalTo: Int = 0
     private var requiredValidator: TextInputValidator = defaultValidator()
-    private val listenerValidatables: MutableList<ValidatableFieldListener> = mutableListOf()
+    private val validatableListeners: MutableList<ValidatableFieldListener> = mutableListOf()
 
 
     private var textInputLayout: TextInputLayout? = null
@@ -87,7 +104,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
             clearError()
             if (validated != isValid) {
                 isValid = validated
-                listenerValidatables.forEach { it.onFieldValidityChanged(this@ValidatableEditText, validated) }
+                validatableListeners.forEach { it.onFieldValidityChanged(this@ValidatableEditText, validated) }
 
             }
         }
@@ -134,7 +151,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     override fun onEditorAction(tv: TextView?, actionId: Int, keyEvent: KeyEvent?): Boolean {
         // User is done with this field, validate the field and show if the input is valid
         if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
-            listenerValidatables.forEach { it.onInputConfirmed(this) }
+            validatableListeners.forEach { it.onInputConfirmed(this) }
         }
         return false
     }
@@ -166,7 +183,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     }
 
     override fun addFieldValidListener(listenerValidatable: ValidatableFieldListener) {
-        listenerValidatables.add(listenerValidatable)
+        validatableListeners.add(listenerValidatable)
     }
 
 
@@ -185,6 +202,11 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         text?.clear()
     }
 
+
+    /**
+     * Set error handler for this view specifically
+     * @param block action that will be triggered
+     */
     fun setErrorHandler(block: (String) -> Unit) {
         formErrorMessageHandler = object : FormErrorMessageHandler {
             override fun onFieldError(view: View, message: String) {

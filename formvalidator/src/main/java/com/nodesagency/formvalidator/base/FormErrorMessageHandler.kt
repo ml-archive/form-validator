@@ -2,6 +2,11 @@ package com.nodesagency.formvalidator.base
 
 import android.view.View
 
+/**
+ * An interface that is used to provide a custom action for a validatable view when error occurs
+ * It can be provided either to the validatable view specifically of for all the views in the FormLayout
+ *
+ */
 interface FormErrorMessageHandler {
     /**
      * @param view - validatable view
