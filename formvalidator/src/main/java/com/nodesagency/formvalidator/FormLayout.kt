@@ -4,11 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.nodesagency.formvalidator.base.ErrorMessageHandler
+import com.nodesagency.formvalidator.base.*
 import com.nodesagency.formvalidator.utils.asSequence
-import com.nodesagency.formvalidator.base.ValidatableFieldListener
-import com.nodesagency.formvalidator.base.FormValidListener
-import com.nodesagency.formvalidator.base.Validatable
 import com.nodesagency.formvalidator.utils.Action
 import com.nodesagency.formvalidator.utils.Logger
 
@@ -21,7 +18,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
      * indicates whether form should automatically display all the errors
      */
     private var errorHandlerMode: ErrorHandlerMode = ErrorHandlerMode.Automatic
-    private var listener: FormValidListener? = null
+    private var listener: FormLayoutListener? = null
     private lateinit var validatableViews: List<Validatable>
     private var childrenResolved: Boolean = false
 
@@ -44,18 +41,6 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         attrs.recycle()
     }
 
-    fun setFormValidListener(block: (Boolean) -> Unit) {
-        listener = object : FormValidListener {
-            override fun onFormValidityChanged(isValid: Boolean) {
-                block.invoke(isValid)
-            }
-        }
-    }
-
-
-    fun setFormErrorHandler(errorMessageHandler: ErrorMessageHandler) {
-        postChildrenAction { validatableViews.forEach { it.errorMessageHandler = errorMessageHandler } }
-    }
 
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -83,13 +68,54 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         }
     }
 
+
+    /**
+     * Allows to react when the form validity status changes
+     * @param block - action that will be triggered when status changes
+     */
+    fun setFormValidListener(block: (Boolean) -> Unit) {
+        listener = object : FormLayoutListener {
+            override fun onFormValidityChanged(isValid: Boolean) {
+                block.invoke(isValid)
+            }
+        }
+    }
+
+    /**
+     * Allows to specify error messages resolver for all the validatable views in the form
+     * @param formErrorMessageResolver - custom resolver implementation
+     */
+    fun setErrorMessageResolver(formErrorMessageResolver: FormErrorMessageResolver) {
+        postChildrenAction { validatableViews.forEach { it.formErrorMessageResolver = formErrorMessageResolver } }
+    }
+
+    /**
+     * Allows to specify an error handler for all the validatable views in the form
+     * @param formErrorMessageHandler - custom handler implementation
+     */
+    fun setErrorMessagesHandler(formErrorMessageHandler: FormErrorMessageHandler) {
+        postChildrenAction { validatableViews.forEach { it.formErrorMessageHandler = formErrorMessageHandler } }
+    }
+
     /**
      * Validates all children and displays the errors
      * @return true if all fields are valid
      */
     fun validateAll(): Boolean {
         return if (!childrenResolved) false
-        else validatableViews.also { it.forEach { it.clearError() } }.all { it.validate(true) }
+        else validatableViews
+            .also { it.forEach { it.clearError() } }
+            .map { it.validate(true) }
+            .all { it }
+    }
+
+    /**
+     * Clear all form fields and errors
+     */
+    fun clear() {
+        for (view in validatableViews) {
+            view.clear()
+        }
     }
 
     /**
@@ -107,6 +133,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
     }
 
 
+
     private fun postChildrenAction(action: Action) {
         if (!childrenResolved) {
             pendingActions.add(action)
@@ -121,7 +148,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
     enum class ErrorHandlerMode {
 
         /**
-         * Error, if any, will be shwown after input confirmation, i.e IME action
+         * Error, if any, will be shown after input confirmation, i.e IME action
          */
         Automatic,
 

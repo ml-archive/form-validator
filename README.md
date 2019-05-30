@@ -1,3 +1,10 @@
+# Whats new
+  - Error messages can be provided as attrbutes
+  - Ability to provide custom action when validation error occures
+  - Better Lib Examples
+  - Clear form functionality
+
+
 # Form Validator
 Library to handle validation of input fields.
 
@@ -22,13 +29,12 @@ Library to handle validation of input fields.
   | --- | --- | --- |
   | `app:passwordStreinght` | When `inputType` set to `textPassword`, this Attribute can further modify how strong the password must be. Can either be set as `none` `weak`, `medium` or `strong` | `none` |
   | `app:identicalTo` | Allows to reference another `ValidatableEditText`, telling the view that its input should match to the referenced view's input  | `0` |
-  | `app:identicalTo` | Allows to reference another `ValidatableEditText`, telling the view that its input should match to the referenced view's input  | `none` |
   | `app:required` | Specifies if the input is required  | `false` |
 
 #### Example
 
 ##### Layout declaration
-```
+```xml
 <com.google.android.material.textfield.TextInputLayout
 
                android:layout_width="match_parent"
@@ -48,7 +54,7 @@ Library to handle validation of input fields.
 
 ##### In Activity/Fragments
 
-```
+```kotlin
 // specify a custom Validator
 editText1.required = true
 editText1.validator = object : TextInputValidator() {
@@ -74,7 +80,7 @@ editText1.validator = object : TextInputValidator() {
 
 #### Layout declaration
 
-```
+```xml
 <com.nodesagency.formvalidator.FormLayout
        android:id="@+id/form2"
        app:errorHandling="manual"
@@ -118,7 +124,7 @@ editText1.validator = object : TextInputValidator() {
 ```
 
 #### In Activity/Fragments
-```
+```kotlin
 // Form state listener
 form.setFormValidListener { isFormValid ->
           // update ui to reflect that

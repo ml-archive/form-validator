@@ -1,4 +1,4 @@
-package com.nodesagency.formvalidator
+package com.nodesagency.formvalidator.example
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
