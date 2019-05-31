@@ -35,9 +35,6 @@ class LoginFragment : Fragment() {
                 showToast("Some fields are invalid")
             }
         }
-
-        MutableLiveData<String>().observe(this, Observer {  })
     }
-
 
 }

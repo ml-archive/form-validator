@@ -194,8 +194,12 @@ class ValidatableEditText : TextInputEditText, Validatable<String>, TextView.OnE
     }
 
 
-    override fun value(): Pair<Int, String?> {
+    override fun getInputValue(): Pair<Int, String?> {
         return id to text?.toString()
+    }
+
+    override fun setInputValue(value: String?) {
+        setText(value)
     }
 
     override fun showError(message: String) {

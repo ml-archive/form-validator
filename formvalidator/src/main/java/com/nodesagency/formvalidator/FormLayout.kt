@@ -1,6 +1,7 @@
 package com.nodesagency.formvalidator
 
 import android.content.Context
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -40,7 +41,6 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         errorHandlerMode = ErrorHandlerMode.values()[modeInt]
         attrs.recycle()
     }
-
 
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -114,8 +114,30 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
      * Obtain all field values
      * @return map with id:value pairs
      */
-    fun retrieveAll() : Map<Int, Any?> {
-        return validatableViews.map { it.value() }.toMap()
+    fun retrieveAll(): Map<Int, Any?> {
+        return validatableViews.map { it.getInputValue() }.toMap()
+    }
+
+
+    fun retrieveAllAsBundle(): Bundle {
+        return Bundle().apply {
+            retrieveAll().forEach {
+                when(val value = it.value) {
+                    is String? -> putString(it.key.toString(), value)
+                    is Boolean -> putBoolean(it.key.toString(), value)
+                }
+            }
+        }.also { Logger.log("Bundle: $it") }
+    }
+
+    fun restoreFromBundle(bundle: Bundle) {
+        Logger.log("Restore from bundle $bundle")
+        validatableViews.forEach {
+           when(it) {
+               is ValidatableEditText -> it.setInputValue(bundle.getString(it.id.toString()))
+               is ValidatableCheckbox -> it.setInputValue(bundle.getBoolean(it.id.toString()))
+           }
+       }
     }
 
     /**
@@ -140,7 +162,6 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
             }
         }.toList().flatten()
     }
-
 
 
     private fun postChildrenAction(action: Action) {

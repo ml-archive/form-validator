@@ -82,7 +82,12 @@ class ValidatableCheckbox : CheckBox, Validatable<Boolean> {
         isChecked = false
     }
 
-    override fun value(): Pair<Int, Boolean?> {
+    override fun getInputValue(): Pair<Int, Boolean?> {
         return id to isChecked
     }
+
+    override fun setInputValue(value: Boolean?) {
+        isChecked = value ?: false
+    }
+
 }

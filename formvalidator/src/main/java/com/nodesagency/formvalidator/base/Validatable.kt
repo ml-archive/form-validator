@@ -45,6 +45,12 @@ interface Validatable<T> {
      * Retrieve validatable field value
      * @return  Pair with id of the view and value
      */
-    fun value() : Pair<Int, T?>
+    fun getInputValue() : Pair<Int, T?>
+
+    /**
+     * Set Input value for validatable field
+     * @param value - value of type T to be set
+     */
+    fun setInputValue(value: T?)
 
 }
