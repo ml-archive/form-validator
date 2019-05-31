@@ -19,7 +19,7 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
      */
     private var errorHandlerMode: ErrorHandlerMode = ErrorHandlerMode.Automatic
     private var listener: FormLayoutListener? = null
-    private lateinit var validatableViews: List<Validatable>
+    private lateinit var validatableViews: List<Validatable<*>>
     private var childrenResolved: Boolean = false
 
     private var pendingActions = ArrayList<Action>()
@@ -57,12 +57,12 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         }
     }
 
-    override fun onFieldValidityChanged(validatable: Validatable, isValid: Boolean) {
+    override fun onFieldValidityChanged(validatable: Validatable<*>, isValid: Boolean) {
         val allValid = validatableViews.all { it.validate() }
         listener?.onFormValidityChanged(allValid)
     }
 
-    override fun onInputConfirmed(validatable: Validatable) {
+    override fun onInputConfirmed(validatable: Validatable<*>) {
         if (errorHandlerMode == ErrorHandlerMode.Automatic) {
             validatable.validate(true)
         }
@@ -131,10 +131,10 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
      * Finds all children in the hierarchy that implement Validatable
      * @return list of Validatable from this hierarchy
      */
-    private fun resolveValidatableChildren(viewGroup: ViewGroup): List<Validatable> {
+    private fun resolveValidatableChildren(viewGroup: ViewGroup): List<Validatable<*>> {
         return viewGroup.asSequence().map {
             when (it) {
-                is Validatable -> listOf<Validatable>(it)
+                is Validatable<*> -> listOf<Validatable<*>>(it)
                 is ViewGroup -> resolveValidatableChildren(it)
                 else -> listOf()
             }

@@ -10,12 +10,12 @@ interface ValidatableFieldListener {
      * @param validatable - caller
      * @param isValid - new validity value
      */
-    fun onFieldValidityChanged(validatable: Validatable, isValid: Boolean)
+    fun onFieldValidityChanged(validatable: Validatable<*>, isValid: Boolean)
 
     /**
      * Called when user confirms his input
      * @param validatable - caller
      */
-    fun onInputConfirmed(validatable: Validatable)
+    fun onInputConfirmed(validatable: Validatable<*>)
 
 }

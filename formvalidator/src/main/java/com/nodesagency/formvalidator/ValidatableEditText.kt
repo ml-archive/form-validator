@@ -25,7 +25,7 @@ import com.nodesagency.formvalidator.validators.password.PasswordValidator
 import com.nodesagency.formvalidator.validators.password.PasswordStreinght
 
 
-class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorActionListener, View.OnFocusChangeListener {
+class ValidatableEditText : TextInputEditText, Validatable<String>, TextView.OnEditorActionListener, View.OnFocusChangeListener {
 
     constructor(context: Context) : super(context, null) {
         init(null)
@@ -194,7 +194,7 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
     }
 
 
-    override fun value(): Pair<Int, Any?> {
+    override fun value(): Pair<Int, String?> {
         return id to text?.toString()
     }
 

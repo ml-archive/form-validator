@@ -1,7 +1,7 @@
 package com.nodesagency.formvalidator.base
 
 
-interface Validatable {
+interface Validatable<T> {
 
     var formErrorMessageResolver: FormErrorMessageResolver
 
@@ -45,6 +45,6 @@ interface Validatable {
      * Retrieve validatable field value
      * @return  Pair with id of the view and value
      */
-    fun value() : Pair<Int, Any?>
+    fun value() : Pair<Int, T?>
 
 }

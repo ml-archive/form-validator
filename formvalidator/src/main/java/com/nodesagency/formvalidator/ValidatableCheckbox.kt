@@ -10,7 +10,7 @@ import com.nodesagency.formvalidator.base.ValidatableFieldListener
 import com.nodesagency.formvalidator.utils.DefaultErrorMessagesResolver
 import com.nodesagency.formvalidator.validators.CheckboxValidator
 
-class ValidatableCheckbox : CheckBox, Validatable {
+class ValidatableCheckbox : CheckBox, Validatable<Boolean> {
 
     constructor(context: Context) : super(context, null) {
         init(null)
@@ -82,7 +82,7 @@ class ValidatableCheckbox : CheckBox, Validatable {
         isChecked = false
     }
 
-    override fun value(): Pair<Int, Any?> {
+    override fun value(): Pair<Int, Boolean?> {
         return id to isChecked
     }
 }
