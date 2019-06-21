@@ -2,6 +2,7 @@ package com.nodesagency.formvalidator.example
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,10 @@ class SignupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("SavedState", "Restore State: $savedInstanceState")
+        if (savedInstanceState != null) {
+            signupForm.restoreFromBundle(savedInstanceState)
+        }
         setupForm()
     }
 
@@ -40,6 +45,13 @@ class SignupFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val bundle = signupForm.retrieveAsBundle()
+        outState.putAll(bundle)
+        Log.d("SavedState", "Saved State: $bundle")
     }
 
 

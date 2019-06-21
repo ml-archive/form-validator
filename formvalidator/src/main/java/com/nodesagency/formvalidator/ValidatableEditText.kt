@@ -1,6 +1,7 @@
 package com.nodesagency.formvalidator
 
 import android.content.Context
+import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -13,10 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.nodesagency.formvalidator.base.FormErrorMessageResolver
-import com.nodesagency.formvalidator.base.FormErrorMessageHandler
-import com.nodesagency.formvalidator.base.ValidatableFieldListener
-import com.nodesagency.formvalidator.base.Validatable
+import com.nodesagency.formvalidator.base.*
 import com.nodesagency.formvalidator.utils.DefaultErrorMessagesResolver
 import com.nodesagency.formvalidator.utils.Logger
 import com.nodesagency.formvalidator.utils.onTextChanged
@@ -25,7 +23,12 @@ import com.nodesagency.formvalidator.validators.password.PasswordValidator
 import com.nodesagency.formvalidator.validators.password.PasswordStreinght
 
 
-class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorActionListener, View.OnFocusChangeListener {
+class ValidatableEditText :
+    TextInputEditText,
+    Validatable,
+    Bundlable,
+    TextView.OnEditorActionListener,
+    View.OnFocusChangeListener {
 
     constructor(context: Context) : super(context, null) {
         init(null)
@@ -213,6 +216,14 @@ class ValidatableEditText : TextInputEditText, Validatable, TextView.OnEditorAct
         text?.clear()
     }
 
+    override fun storeToBundle(): Bundle {
+        return Bundle().apply { putString(id.toString(), text?.toString()) }
+    }
+
+    override fun restoreFromBundle(bundle: Bundle) {
+        val value = bundle.getString(id.toString(), null) ?: return
+        setText(value)
+    }
 
     /**
      * Set error handler for this view specifically

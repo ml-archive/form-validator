@@ -1,6 +1,7 @@
 package com.nodesagency.formvalidator
 
 import android.content.Context
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -109,6 +110,20 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
             .all { it }
     }
 
+    fun restoreFromBundle(bundle: Bundle) {
+        postChildrenAction {
+            validatableViews.mapNotNull { it as? Bundlable }.forEach {
+                it.restoreFromBundle(bundle)
+            }
+        }
+    }
+
+    fun retrieveAsBundle() : Bundle {
+        return if (childrenResolved) {
+            val bundles = validatableViews.mapNotNull { it as? Bundlable }.map { it.storeToBundle() }
+            Bundle().apply { bundles.forEach { putAll(it) } }
+        } else Bundle()
+    }
 
     /**
      * Obtain all field values
