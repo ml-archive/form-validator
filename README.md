@@ -79,7 +79,7 @@ editText1.validator = object : TextInputValidator() {
 
 | Attribute | Description | Default |
 | --- | --- | --- |
-| `app:errorHandling` | Tells layout when its children should display the input error. `manual` mode will show errors only when it is requested, `ime` will show the error, if any, when the input is confirmed (i.e IME action). 'focus' will show the error when the field loses focus  | `ime` |
+| `app:errorHandling` | Tells layout when its children should display the input error. `manual` mode will show errors only when it is requested, `ime` will show the error, if any, when the input is confirmed (i.e IME action). `focus` will show the error when the field loses focus  | `ime` |
 
 ### Example
 
