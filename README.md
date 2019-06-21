@@ -32,7 +32,7 @@ Library to handle validation of input fields.
 
   | Attribute | Description | Default |
   | --- | --- | --- |
-  | `app:passwordStreinght` | When `inputType` set to `textPassword`, this Attribute can further modify how strong the password must be. Can either be set as `none` `weak`, `medium` or `strong` | `none` |
+  | `app:passwordStreinght` | When `inputType` set to `textPassword`, this Attribute can further modify how strong the password must be. Can either be set as `none`, `weak`, `medium` or `strong` | `none` |
   | `app:identicalTo` | Allows to reference another `ValidatableEditText`, telling the view that its input should match to the referenced view's input  | `0` |
   | `app:required` | Specifies if the input is required  | `false` |
 
