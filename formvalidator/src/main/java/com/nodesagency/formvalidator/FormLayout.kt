@@ -118,6 +118,11 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
             .all { it }
     }
 
+    /**
+     * Restores all the fields state from bundle
+     * @see Bundlable
+     * @param bundle - bundle with saved state
+     */
     fun restoreFromBundle(bundle: Bundle) {
         postChildrenAction {
             validatableViews.mapNotNull { it as? Bundlable }.forEach {
@@ -126,6 +131,11 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
         }
     }
 
+    /**
+     * Bundles all the fields that implements Bundlable
+     * @see Bundlable
+     * @return bundle with the saved state
+     */
     fun retrieveAsBundle() : Bundle {
         return if (childrenResolved) {
             val bundles = validatableViews.mapNotNull { it as? Bundlable }.map { it.storeToBundle() }
