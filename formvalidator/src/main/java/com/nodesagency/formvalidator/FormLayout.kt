@@ -18,11 +18,13 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
     /**
      * indicates whether form should automatically display all the errors
      */
-    private var errorHandlerMode: ErrorHandlerMode = ErrorHandlerMode.Automatic
+    var errorHandlerMode: ErrorHandlerMode = ErrorHandlerMode.Ime
+
+
+
     private var listener: FormLayoutListener? = null
     private lateinit var validatableViews: List<Validatable>
     private var childrenResolved: Boolean = false
-
     private var pendingActions = ArrayList<Action>()
 
 
@@ -64,7 +66,13 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
     }
 
     override fun onInputConfirmed(validatable: Validatable) {
-        if (errorHandlerMode == ErrorHandlerMode.Automatic) {
+        if (errorHandlerMode == ErrorHandlerMode.Ime) {
+            validatable.validate(true)
+        }
+    }
+
+    override fun onInputLostFocus(validatable: Validatable) {
+        if (errorHandlerMode == ErrorHandlerMode.Focus) {
             validatable.validate(true)
         }
     }
@@ -167,14 +175,21 @@ class FormLayout @JvmOverloads constructor(context: Context, attributeSet: Attri
     }
 
     /**
-     * Enum to handle how the errors are gonna be displayed
+     * Enum to handle when the errors are gonna be displayed
      */
     enum class ErrorHandlerMode {
 
         /**
          * Error, if any, will be shown after input confirmation, i.e IME action
          */
-        Automatic,
+        Ime,
+
+
+        /**
+         * Error, if any, will be shown when the input loses focus
+         */
+        Focus,
+
 
         /**
          * Error will not be shown until validateAll() is triggered

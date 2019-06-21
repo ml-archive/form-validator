@@ -3,8 +3,9 @@
 
     <declare-styleable name="FormLayout">
         <attr name="errorHandling" format="enum">
-            <enum name="automatic" value="0"/>
-            <enum name="manual" value="1"/>
+            <enum name="ime" value="0"/>
+            <enum name="focus" value="1"/>
+            <enum name="manual" value="2"/>
         </attr>
     </declare-styleable>
 

@@ -163,7 +163,7 @@ class ValidatableEditText :
 
     override fun onFocusChange(view: View?, focused: Boolean) {
         if (!focused) {
-            validatableListeners.forEach { it.onInputConfirmed(this) }
+            validatableListeners.forEach { it.onInputLostFocus(this) }
         }
     }
 

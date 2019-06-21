@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.nodesagency.formvalidator.FormLayout
 import com.nodesagency.formvalidator.base.BaseValidator
 import com.nodesagency.formvalidator.base.FormErrorMessageHandler
 import com.nodesagency.formvalidator.base.FormErrorMessageResolver
@@ -35,6 +36,15 @@ class CustomFormFragment : Fragment(), FormErrorMessageHandler, FormErrorMessage
     }
 
     private fun setupListeners() {
+
+        radioGroups.setOnCheckedChangeListener { radioGroup, i ->
+            when(i) {
+                R.id.modeFocus -> customForm.errorHandlerMode = FormLayout.ErrorHandlerMode.Focus
+                R.id.modeIme -> customForm.errorHandlerMode = FormLayout.ErrorHandlerMode.Ime
+                R.id.modeManual -> customForm.errorHandlerMode = FormLayout.ErrorHandlerMode.Manual
+            }
+        }
+
         submitBtn.setOnClickListener {
             if (customForm.validateAll()) {
                 showToast("Looks fine!")
