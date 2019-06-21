@@ -3,19 +3,29 @@
 
     <declare-styleable name="FormLayout">
         <attr name="errorHandling" format="enum">
-            <enum name="automatic" value="0"/>
-            <enum name="manual" value="1"/>
+            <enum name="ime" value="0"/>
+            <enum name="focus" value="1"/>
+            <enum name="manual" value="2"/>
         </attr>
     </declare-styleable>
 
     <declare-styleable name="ValidatableEditText">
         <attr name="required" format="boolean"/>
         <attr name="identicalTo" format="reference"/>
+        <attr name="errorMessage" format="string"/>
+        <attr name="requiredMessage" format="string"/>
         <attr name="passwordStreinght" format="enum">
-            <enum name="weak" value="0"/>
-            <enum name="medium" value="1"/>
-            <enum name="strong" value="2"/>
+            <enum name="none" value="0"/>
+            <enum name="weak" value="1"/>
+            <enum name="medium" value="2"/>
+            <enum name="strong" value="3"/>
         </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="ValidatableCheckbox">
+        <attr name="required" />
+        <attr name="errorMessage"/>
     </declare-styleable>
 
 </resources>

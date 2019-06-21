@@ -1,16 +1,21 @@
 package com.nodesagency.formvalidator.base
 
 
-interface Validatable  {
+interface Validatable {
 
-    var errorMessageHandler: ErrorMessageHandler
+    var formErrorMessageResolver: FormErrorMessageResolver
+
+    var formErrorMessageHandler: FormErrorMessageHandler?
+
+
+    var isRequired: Boolean
 
     /**
      * Validates the the field
      * @return true if field is valid, false otherwise
      * @param showError indicates whether field should display the error in case of the bad input
      */
-    fun validate(showError: Boolean = false) : Boolean
+    fun validate(showError: Boolean = false): Boolean
 
     /**
      * Adds a listener for this field
@@ -30,5 +35,16 @@ interface Validatable  {
      */
     fun clearError()
 
+    /**
+     * Clears the field input
+     */
+    fun clear()
+
+
+    /**
+     * Retrieve validatable field value
+     * @return  Pair with id of the view and value
+     */
+    fun value() : Pair<Int, Any?>
 
 }

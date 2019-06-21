@@ -10,6 +10,7 @@ class PasswordValidator(val streinght: PasswordStreinght) : TextInputValidator()
            PasswordStreinght.Weak ->  value.length >= 6
            PasswordStreinght.Medium ->  value.matches(Regex(RegexPatterns.Password.Medium))
            PasswordStreinght.Strong ->  value.matches(Regex(RegexPatterns.Password.Strong))
+           PasswordStreinght.None -> true
        }
     }
 }

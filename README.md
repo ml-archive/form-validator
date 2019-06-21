@@ -1,3 +1,15 @@
+# Whats new
+  - Error messages can be provided as attrbutes
+  - Ability to provide custom action when validation error occures
+  - Better Lib Examples
+  - Clear form functionality
+  - ValidatableCheckBox
+  - Validate edit text when losing focus
+  - `form.retrieveAll()` - to retrieve all the field values from the form as Map
+  - "None" password streinght when its better to skip validation
+  - `Bundlable` interface to help with configuration changes (store/restore Form state with bundles)
+
+
 # Form Validator
 Library to handle validation of input fields.
 
@@ -27,7 +39,7 @@ Library to handle validation of input fields.
 #### Example
 
 ##### Layout declaration
-```
+```xml
 <com.google.android.material.textfield.TextInputLayout
 
                android:layout_width="match_parent"
@@ -47,7 +59,7 @@ Library to handle validation of input fields.
 
 ##### In Activity/Fragments
 
-```
+```kotlin
 // specify a custom Validator
 editText1.required = true
 editText1.validator = object : TextInputValidator() {
@@ -67,13 +79,13 @@ editText1.validator = object : TextInputValidator() {
 
 | Attribute | Description | Default |
 | --- | --- | --- |
-| `app:errorHandling` | Tells layout when its children should display the error in input. `manual` mode will show errors only when it is requested, `automatic` will show error, if any, when the input is confirmed (i.e IME action)  | `automatic` |
+| `app:errorHandling` | Tells layout when its children should display the input error. `manual` mode will show errors only when it is requested, `ime` will show the error, if any, when the input is confirmed (i.e IME action). `focus` will show the error when the field loses focus  | `ime` |
 
 ### Example
 
 #### Layout declaration
 
-```
+```xml
 <com.nodesagency.formvalidator.FormLayout
        android:id="@+id/form2"
        app:errorHandling="manual"
@@ -117,7 +129,7 @@ editText1.validator = object : TextInputValidator() {
 ```
 
 #### In Activity/Fragments
-```
+```kotlin
 // Form state listener
 form.setFormValidListener { isFormValid ->
           // update ui to reflect that

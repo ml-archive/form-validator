@@ -17,4 +17,11 @@ interface ValidatableFieldListener {
      * @param validatable - caller
      */
     fun onInputConfirmed(validatable: Validatable)
+
+    /**
+     * Called when input loses focus
+     * @param validatable - field that have lost focus
+     */
+    fun onInputLostFocus(validatable: Validatable)
+
 }
