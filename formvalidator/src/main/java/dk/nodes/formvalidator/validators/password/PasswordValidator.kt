@@ -1,7 +1,7 @@
 package dk.nodes.formvalidator.validators.password
 
-import com.nodes.formvalidator.utils.RegexPatterns
-import com.nodes.formvalidator.validators.TextInputValidator
+import dk.nodes.formvalidator.utils.RegexPatterns
+import dk.nodes.formvalidator.validators.TextInputValidator
 
 
 class PasswordValidator(val streinght: PasswordStreinght) : TextInputValidator() {

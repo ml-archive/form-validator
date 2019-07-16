@@ -3,12 +3,12 @@ package dk.nodes.formvalidator
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.CheckBox
-import com.nodes.formvalidator.base.FormErrorMessageHandler
-import com.nodes.formvalidator.base.FormErrorMessageResolver
-import com.nodes.formvalidator.base.Validatable
-import com.nodes.formvalidator.base.ValidatableFieldListener
-import com.nodes.formvalidator.utils.DefaultErrorMessagesResolver
-import com.nodes.formvalidator.validators.CheckboxValidator
+import dk.nodes.formvalidator.base.FormErrorMessageHandler
+import dk.nodes.formvalidator.base.FormErrorMessageResolver
+import dk.nodes.formvalidator.base.Validatable
+import dk.nodes.formvalidator.base.ValidatableFieldListener
+import dk.nodes.formvalidator.utils.DefaultErrorMessagesResolver
+import dk.nodes.formvalidator.validators.CheckboxValidator
 
 class ValidatableCheckbox : CheckBox, Validatable {
 

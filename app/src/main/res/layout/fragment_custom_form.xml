@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.nodesagency.formvalidator.FormLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<dk.nodes.formvalidator.FormLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/customForm"
@@ -57,7 +57,7 @@
             android:hint="Exactly 5 symbols"
             android:layout_height="wrap_content">
 
-            <com.nodesagency.formvalidator.ValidatableEditText
+            <dk.nodes.formvalidator.ValidatableEditText
                 android:id="@+id/validatableEt1"
                 android:inputType="text"
                 android:layout_width="match_parent"
@@ -72,7 +72,7 @@
 
             android:layout_height="wrap_content">
 
-            <com.nodesagency.formvalidator.ValidatableEditText
+            <dk.nodes.formvalidator.ValidatableEditText
                 android:inputType="number"
                 app:required="true"
                 app:requiredMessage="Please enter this man"
@@ -84,7 +84,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.nodesagency.formvalidator.ValidatableEditText
+        <dk.nodes.formvalidator.ValidatableEditText
             android:id="@+id/validatableEt3"
             android:hint="Not empty"
             android:inputType="text"
@@ -103,4 +103,4 @@
     </LinearLayout>
 
 
-</com.nodesagency.formvalidator.FormLayout>
+</dk.nodes.formvalidator.FormLayout>

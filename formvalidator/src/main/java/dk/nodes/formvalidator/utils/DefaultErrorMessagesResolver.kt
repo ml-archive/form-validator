@@ -1,12 +1,12 @@
 package dk.nodes.formvalidator.utils
 
 import android.content.Context
-import com.nodes.formvalidator.R
-import com.nodes.formvalidator.base.BaseValidator
-import com.nodes.formvalidator.base.FormErrorMessageResolver
-import com.nodes.formvalidator.validators.*
-import com.nodes.formvalidator.validators.password.PasswordStreinght
-import com.nodes.formvalidator.validators.password.PasswordValidator
+import dk.nodes.formvalidator.R
+import dk.nodes.formvalidator.base.BaseValidator
+import dk.nodes.formvalidator.base.FormErrorMessageResolver
+import dk.nodes.formvalidator.validators.*
+import dk.nodes.formvalidator.validators.password.PasswordStreinght
+import dk.nodes.formvalidator.validators.password.PasswordValidator
 
 /**
  * Default implementation of error messages resolver

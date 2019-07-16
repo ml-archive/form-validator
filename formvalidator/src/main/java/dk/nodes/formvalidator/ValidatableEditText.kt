@@ -14,13 +14,13 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.nodes.formvalidator.base.*
-import com.nodes.formvalidator.utils.DefaultErrorMessagesResolver
-import com.nodes.formvalidator.utils.Logger
-import com.nodes.formvalidator.utils.onTextChanged
-import com.nodes.formvalidator.validators.*
-import com.nodes.formvalidator.validators.password.PasswordValidator
-import com.nodes.formvalidator.validators.password.PasswordStreinght
+import dk.nodes.formvalidator.base.*
+import dk.nodes.formvalidator.utils.DefaultErrorMessagesResolver
+import dk.nodes.formvalidator.utils.Logger
+import dk.nodes.formvalidator.utils.onTextChanged
+import dk.nodes.formvalidator.validators.*
+import dk.nodes.formvalidator.validators.password.PasswordValidator
+import dk.nodes.formvalidator.validators.password.PasswordStreinght
 
 
 class ValidatableEditText :

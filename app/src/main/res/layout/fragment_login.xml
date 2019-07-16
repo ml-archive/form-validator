@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <com.nodesagency.formvalidator.FormLayout
+    <dk.nodes.formvalidator.FormLayout
         android:id="@+id/loginForm"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.nodesagency.formvalidator.ValidatableEditText
+                <dk.nodes.formvalidator.ValidatableEditText
                     android:layout_width="match_parent"
                     android:inputType="textEmailAddress"
                     app:required="true"
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.nodesagency.formvalidator.ValidatableEditText
+                <dk.nodes.formvalidator.ValidatableEditText
                     android:inputType="textPassword"
                     app:required="true"
                     android:layout_width="match_parent"
@@ -81,7 +81,7 @@
         </LinearLayout>
 
 
-    </com.nodesagency.formvalidator.FormLayout>
+    </dk.nodes.formvalidator.FormLayout>
 
     <Button
         android:id="@+id/loginBtn"

@@ -46,7 +46,7 @@ Library to handle validation of input fields.
                android:layout_height="wrap_content"
                android:hint="Password">
 
-               <com.nodesagency.formvalidator.ValidatableEditText
+               <dk.nodes.formvalidator.ValidatableEditText
                    android:id="@+id/passwordRepeatEt"
                    app:required="true"
                    app:identicalTo="@id/passwordEt"
@@ -86,7 +86,7 @@ editText1.validator = object : TextInputValidator() {
 #### Layout declaration
 
 ```xml
-<com.nodesagency.formvalidator.FormLayout
+<dk.nodes.formvalidator.FormLayout
        android:id="@+id/form2"
        app:errorHandling="manual"
        android:layout_width="match_parent"
@@ -99,7 +99,7 @@ editText1.validator = object : TextInputValidator() {
                android:layout_height="wrap_content"
                android:hint="email">
 
-               <com.nodesagency.formvalidator.ValidatableEditText
+               <dk.nodes.formvalidator.ValidatableEditText
                    android:id="@+id/editText1"
                    app:required="true"
                    android:inputType="textEmailAdress"
@@ -114,7 +114,7 @@ editText1.validator = object : TextInputValidator() {
                android:layout_height="wrap_content"
                android:hint="Password">
 
-               <com.nodesagency.formvalidator.ValidatableEditText
+               <dk.nodes.formvalidator.ValidatableEditText
                    android:id="@+id/passwordEt"
                    app:required="true"
                    android:inputType="textPassword"
@@ -123,7 +123,7 @@ editText1.validator = object : TextInputValidator() {
 
            </com.google.android.material.textfield.TextInputLayout>
 
-</com.nodesagency.formvalidator.FormLayout>
+</dk.nodes.formvalidator.FormLayout>
 
 
 ```

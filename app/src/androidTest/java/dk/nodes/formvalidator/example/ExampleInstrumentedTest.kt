@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.nodesagency.formvalidator", appContext.packageName)
+        assertEquals("dk.nodes.formvalidator.example", appContext.packageName)
     }
 }

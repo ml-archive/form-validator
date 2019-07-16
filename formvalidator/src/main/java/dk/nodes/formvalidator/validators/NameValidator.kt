@@ -1,6 +1,6 @@
 package dk.nodes.formvalidator.validators
 
-import com.nodes.formvalidator.utils.RegexPatterns
+import dk.nodes.formvalidator.utils.RegexPatterns
 
 class NameValidator : TextInputValidator() {
 

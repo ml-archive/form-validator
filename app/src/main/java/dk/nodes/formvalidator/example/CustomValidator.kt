@@ -1,6 +1,6 @@
 package dk.nodes.formvalidator.example
 
-import com.nodes.formvalidator.validators.TextInputValidator
+import dk.nodes.formvalidator.validators.TextInputValidator
 import java.lang.NumberFormatException
 
 class CustomValidator : TextInputValidator() {

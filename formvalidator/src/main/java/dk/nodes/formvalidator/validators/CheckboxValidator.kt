@@ -1,6 +1,6 @@
 package dk.nodes.formvalidator.validators
 
-import com.nodes.formvalidator.base.BaseValidator
+import dk.nodes.formvalidator.base.BaseValidator
 
 class CheckboxValidator(private val isRequired: Boolean) : BaseValidator<Boolean> {
 

@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.nodes.formvalidator.base.*
-import com.nodes.formvalidator.utils.asSequence
-import com.nodes.formvalidator.utils.Action
-import com.nodes.formvalidator.utils.Logger
+import dk.nodes.formvalidator.base.*
+import dk.nodes.formvalidator.utils.asSequence
+import dk.nodes.formvalidator.utils.Action
+import dk.nodes.formvalidator.utils.Logger
 
 
 class FormLayout @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyle: Int = 0) :

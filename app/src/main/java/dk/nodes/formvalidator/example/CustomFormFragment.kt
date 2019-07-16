@@ -7,11 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.nodes.formvalidator.FormLayout
-import com.nodes.formvalidator.base.BaseValidator
-import com.nodes.formvalidator.base.FormErrorMessageHandler
-import com.nodes.formvalidator.base.FormErrorMessageResolver
-import com.nodes.formvalidator.validators.TextInputValidator
+import dk.nodes.formvalidator.FormLayout
+import dk.nodes.formvalidator.base.BaseValidator
+import dk.nodes.formvalidator.base.FormErrorMessageHandler
+import dk.nodes.formvalidator.base.FormErrorMessageResolver
+import dk.nodes.formvalidator.validators.TextInputValidator
 import kotlinx.android.synthetic.main.fragment_custom_form.*
 
 /**
@@ -24,7 +24,7 @@ class CustomFormFragment : Fragment(), FormErrorMessageHandler, FormErrorMessage
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(com.nodes.formvalidator.example.R.layout.fragment_custom_form, container, false)
+        return inflater.inflate(R.layout.fragment_custom_form, container, false)
     }
 
 
@@ -38,9 +38,9 @@ class CustomFormFragment : Fragment(), FormErrorMessageHandler, FormErrorMessage
 
         radioGroups.setOnCheckedChangeListener { radioGroup, i ->
             when(i) {
-                com.nodes.formvalidator.example.R.id.modeFocus -> customForm.errorHandlerMode = FormLayout.ErrorHandlerMode.Focus
-                com.nodes.formvalidator.example.R.id.modeIme -> customForm.errorHandlerMode = FormLayout.ErrorHandlerMode.Ime
-                com.nodes.formvalidator.example.R.id.modeManual -> customForm.errorHandlerMode = FormLayout.ErrorHandlerMode.Manual
+                R.id.modeFocus -> customForm.errorHandlerMode = FormLayout.ErrorHandlerMode.Focus
+                R.id.modeIme -> customForm.errorHandlerMode = FormLayout.ErrorHandlerMode.Ime
+                R.id.modeManual -> customForm.errorHandlerMode = FormLayout.ErrorHandlerMode.Manual
             }
         }
 
@@ -71,7 +71,7 @@ class CustomFormFragment : Fragment(), FormErrorMessageHandler, FormErrorMessage
         validatableEt1.errorMessage = "Totally wrong"
         validatableEt2.requiredMessage = "Required, doctor's orders"
 
-        validatableEt2.validator = dk.nodes.formvalidator.example.CustomValidator()
+        validatableEt2.validator = CustomValidator()
 
         customForm.setErrorMessagesHandler(this)
         customForm.setErrorMessageResolver(this)
@@ -88,8 +88,8 @@ class CustomFormFragment : Fragment(), FormErrorMessageHandler, FormErrorMessage
 
     override fun onFieldError(view: View, message: String) {
         when(view.id) {
-            com.nodes.formvalidator.example.R.id.validatableEt1 -> showToast(message)
-            com.nodes.formvalidator.example.R.id.validatableEt2 -> showSnackbar(message)
+            R.id.validatableEt1 -> showToast(message)
+            R.id.validatableEt2 -> showSnackbar(message)
             else -> AlertDialog.Builder(context).setTitle("Error").setMessage(message).show()
         }
     }

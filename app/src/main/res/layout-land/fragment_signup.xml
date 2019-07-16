@@ -40,7 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.nodesagency.formvalidator.FormLayout
+    <dk.nodes.formvalidator.FormLayout
         android:id="@+id/signupForm"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Email">
 
-                <com.nodesagency.formvalidator.ValidatableEditText
+                <dk.nodes.formvalidator.ValidatableEditText
                     android:id="@+id/emailEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Password">
 
-                <com.nodesagency.formvalidator.ValidatableEditText
+                <dk.nodes.formvalidator.ValidatableEditText
                     android:id="@+id/passwordEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Repeat Password">
 
-                <com.nodesagency.formvalidator.ValidatableEditText
+                <dk.nodes.formvalidator.ValidatableEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
@@ -101,7 +101,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.nodesagency.formvalidator.ValidatableCheckbox
+            <dk.nodes.formvalidator.ValidatableCheckbox
 
                 android:id="@+id/checkbox"
                 android:layout_width="match_parent"
@@ -112,5 +112,5 @@
 
         </LinearLayout>
 
-    </com.nodesagency.formvalidator.FormLayout>
+    </dk.nodes.formvalidator.FormLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

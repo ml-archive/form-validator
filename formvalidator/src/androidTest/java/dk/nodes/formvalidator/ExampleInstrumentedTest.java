@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.nodesagency.formvalidator.test", appContext.getPackageName());
+        assertEquals("dk.nodes.formvalidator.test", appContext.getPackageName());
     }
 }
