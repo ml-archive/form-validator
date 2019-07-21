@@ -10,7 +10,7 @@ import dk.nodes.formvalidator.base.ValidatableFieldListener
 import dk.nodes.formvalidator.utils.DefaultErrorMessagesResolver
 import dk.nodes.formvalidator.validators.CheckboxValidator
 
-class ValidatableCheckbox : CheckBox, Validatable {
+open class ValidatableCheckbox : CheckBox, Validatable {
 
     constructor(context: Context) : super(context, null) {
         init(null)

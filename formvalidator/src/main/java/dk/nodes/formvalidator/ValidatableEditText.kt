@@ -23,7 +23,7 @@ import dk.nodes.formvalidator.validators.password.PasswordValidator
 import dk.nodes.formvalidator.validators.password.PasswordStreinght
 
 
-class ValidatableEditText :
+open class ValidatableEditText :
     TextInputEditText,
     Validatable,
     Bundlable,
