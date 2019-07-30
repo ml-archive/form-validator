@@ -13,6 +13,10 @@
 # Form Validator
 Library to handle validation of input fields.
 
+```
+    implementation 'dk.nodes.formvalidator:base:1.0.0'
+```
+
 ## Features:
   - Out of the box validation for common input types such as passwords, emails and Names.
   - Grouping input fields into Forms to centrilize validation logic
