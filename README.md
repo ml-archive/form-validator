@@ -16,7 +16,7 @@ Library to handle validation of input fields.
 ## Installation
 
 ```groovy
-    implementation 'dk.nodes.formvalidator:base:1.0.0'
+    implementation 'dk.nodes.formvalidator:base:1.0.1'
 ```
 
 ## Features:
