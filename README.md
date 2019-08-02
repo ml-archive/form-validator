@@ -154,6 +154,8 @@ editText1.validator = object : TextInputValidator() {
 
 #### In Activity/Fragments
 
+
+
 #### Form validation
 In case you want to manually validate the form, you can call `validateAll()` method.
 This will check validity of all validatable fields and, in case of error, will trigger `showError()` for respective fields.
@@ -167,6 +169,28 @@ loginBtn.setOnClickListener {
   }
 }
 ```
+
+#### Store/Restore Form's state
+Both `ValidatableEditText` and `ValidatableCheckBox` values can be retrieved as `Bundle`. `FormLayout` provides methods to put all the values from fields into one `Bundle`, so it is use in `onSaveInstanceState` for example
+```kotlin
+// Store state
+override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val bundle = signupForm.retrieveAsBundle()
+        outState.putAll(bundle)
+    }
+
+// Restoring state
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+       super.onViewCreated(view, savedInstanceState)
+       if (savedInstanceState != null) {
+           signupForm.restoreFromBundle(savedInstanceState)
+       }
+   }
+```
+> **Warning: `retrieveAsBundle() `and` restoreFromBundle()` relies on views IDs when storing and restoring values, so make sure all your validatable fields have distinct IDs**
+
+
 #### Listening to changes
 You can also set a listener to check when form becomes valid/invalid
 
