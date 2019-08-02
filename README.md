@@ -169,6 +169,19 @@ loginBtn.setOnClickListener {
 }
 ```
 
+#### Retrieving values
+You can retrieve all the values from the fields as map using `retrieveAll()` methods. It will map values to the respective views ID, so make sure you have distinct IDs for your fields.
+```kotlin
+ fun form.getSignupData() : SignupRequest {
+        val values = retrieveAll()
+        return SignupRequest(
+            email = values[R.id.emailEt] as String,
+            password = values[R.id.passwordEt] as String,
+            terms = values[R.id.termsCheckBox] as Boolean
+        )
+    }
+```
+
 #### Store/Restore Form's state
 Both `ValidatableEditText` and `ValidatableCheckBox` values can be retrieved as `Bundle`. `FormLayout` provides methods to put all the values from fields into one `Bundle`, so it is use in `onSaveInstanceState` for example
 ```kotlin
