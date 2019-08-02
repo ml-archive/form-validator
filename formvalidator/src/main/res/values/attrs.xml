@@ -16,7 +16,7 @@
         <attr name="errorMessage" format="string"/>
         <attr name="requiredMessage" format="string"/>
         <attr name="lengthMessage" format="string"/>
-        <attr name="passwordStreinght" format="enum">
+        <attr name="passwordStrength" format="enum">
             <enum name="none" value="0"/>
             <enum name="weak" value="1"/>
             <enum name="medium" value="2"/>

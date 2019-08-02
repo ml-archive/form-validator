@@ -147,7 +147,7 @@ open class ValidatableEditText :
     private fun initFromAttributes(attributeSet: AttributeSet) {
         val attrs = context.obtainStyledAttributes(attributeSet, R.styleable.ValidatableEditText, 0, 0)
 
-        val passwordStreinghtInt = attrs.getInt(R.styleable.ValidatableEditText_passwordStreinght, 0)
+        val passwordStreinghtInt = attrs.getInt(R.styleable.ValidatableEditText_passwordStrength, 0)
 
         isRequired = attrs.getBoolean(R.styleable.ValidatableEditText_required, false)
         identicalTo = attrs.getResourceId(R.styleable.ValidatableEditText_identicalTo, 0)
