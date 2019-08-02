@@ -17,13 +17,14 @@ import com.google.android.material.textfield.TextInputLayout
 import dk.nodes.formvalidator.base.*
 import dk.nodes.formvalidator.utils.DefaultErrorMessagesResolver
 import dk.nodes.formvalidator.utils.Logger
+import dk.nodes.formvalidator.utils.getIntOrNull
 import dk.nodes.formvalidator.utils.onTextChanged
 import dk.nodes.formvalidator.validators.*
 import dk.nodes.formvalidator.validators.password.PasswordValidator
 import dk.nodes.formvalidator.validators.password.PasswordStreinght
 
 
-class ValidatableEditText :
+open class ValidatableEditText :
     TextInputEditText,
     Validatable,
     Bundlable,
@@ -48,8 +49,10 @@ class ValidatableEditText :
     var validator: TextInputValidator = defaultValidator()
 
 
+
     /**
      * Specifies if the input is required for this field
+     * default value is false
      */
     override var isRequired: Boolean = false
         set(value) {
@@ -57,6 +60,16 @@ class ValidatableEditText :
             requiredValidator = RequiredValidator(isRequired)
         }
 
+    /**
+     * Allows to specify the minimal lenght required for this field
+     * assign @null to ignore length validation
+     * default value is null
+     */
+    var min: Int?
+        get() = lengthValidator.min
+        set(newMin) {
+            lengthValidator = MinLengthValidator(newMin)
+        }
 
     /**
      * Error message that will be show when the field is required, but the input is empty
@@ -69,6 +82,8 @@ class ValidatableEditText :
      * When not specified formErrorMessageResolver will be used to resolve the error message ( depending on validator type)
      */
     var errorMessage: String? = null
+
+    var minimalLengthMessage: String? = null
 
     override var formErrorMessageResolver: FormErrorMessageResolver =
         DefaultErrorMessagesResolver(context)
@@ -91,8 +106,13 @@ class ValidatableEditText :
 
 
     private var identicalTo: Int = 0
-    private var requiredValidator: TextInputValidator = defaultValidator()
+
     private val validatableListeners: MutableList<ValidatableFieldListener> = mutableListOf()
+    /**
+     * Input length validator
+     */
+    private var lengthValidator: MinLengthValidator = MinLengthValidator()
+    private var requiredValidator: TextInputValidator = defaultValidator()
 
 
     private var textInputLayout: TextInputLayout? = null
@@ -127,7 +147,7 @@ class ValidatableEditText :
     private fun initFromAttributes(attributeSet: AttributeSet) {
         val attrs = context.obtainStyledAttributes(attributeSet, R.styleable.ValidatableEditText, 0, 0)
 
-        val passwordStreinghtInt = attrs.getInt(R.styleable.ValidatableEditText_passwordStreinght, 0)
+        val passwordStreinghtInt = attrs.getInt(R.styleable.ValidatableEditText_passwordStrength, 0)
 
         isRequired = attrs.getBoolean(R.styleable.ValidatableEditText_required, false)
         identicalTo = attrs.getResourceId(R.styleable.ValidatableEditText_identicalTo, 0)
@@ -136,6 +156,8 @@ class ValidatableEditText :
         requiredMessage = attrs.getString(R.styleable.ValidatableEditText_requiredMessage)
 
         passwordStreinght = PasswordStreinght.values()[passwordStreinghtInt]
+
+        min = attrs.getIntOrNull(R.styleable.ValidatableEditText_min)
 
         attrs.recycle()
     }
@@ -172,6 +194,7 @@ class ValidatableEditText :
 
         val requirementValidated = requiredValidator.validate(text)
         val contentValidated = validator.validate(text)
+        val lengthValidated = lengthValidator.validate(text)
 
         if (showError) {
             // Check if field is required first
@@ -187,9 +210,15 @@ class ValidatableEditText :
                 showError(message)
                 return false
             }
+
+            if (!lengthValidated) {
+                val message = minimalLengthMessage ?: formErrorMessageResolver.resolveValidatorErrorMessage(lengthValidator)
+                showError(message)
+                return false
+            }
         }
 
-        return requirementValidated && contentValidated
+        return requirementValidated && contentValidated && lengthValidated
     }
 
     override fun addFieldValidListener(listenerValidatable: ValidatableFieldListener) {

@@ -93,6 +93,7 @@
 
                 <dk.nodes.formvalidator.ValidatableEditText
                     android:layout_width="match_parent"
+                    android:id="@+id/repeatPasswordEt"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     app:identicalTo="@id/passwordEt"

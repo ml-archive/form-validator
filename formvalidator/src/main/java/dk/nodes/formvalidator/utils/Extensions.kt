@@ -1,10 +1,14 @@
 package dk.nodes.formvalidator.utils
 
+import android.content.res.TypedArray
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.content.res.getIntOrThrow
+import java.lang.Exception
 
 
 internal typealias Action = () -> Unit
@@ -49,4 +53,12 @@ internal fun EditText.onTextChanged(block: (String) -> Unit) {
                 block.invoke(p0?.toString() ?: "")
         }
     })
+}
+
+internal fun TypedArray.getIntOrNull(id: Int) : Int? {
+    return try {
+        getIntOrThrow(id)
+    } catch (e: Exception) {
+        null
+    }
 }

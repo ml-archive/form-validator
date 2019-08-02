@@ -11,10 +11,12 @@
 
     <declare-styleable name="ValidatableEditText">
         <attr name="required" format="boolean"/>
+        <attr name="min" format="integer"/>
         <attr name="identicalTo" format="reference"/>
         <attr name="errorMessage" format="string"/>
         <attr name="requiredMessage" format="string"/>
-        <attr name="passwordStreinght" format="enum">
+        <attr name="lengthMessage" format="string"/>
+        <attr name="passwordStrength" format="enum">
             <enum name="none" value="0"/>
             <enum name="weak" value="1"/>
             <enum name="medium" value="2"/>
