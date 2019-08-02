@@ -10,4 +10,5 @@
     <string name="error_required">This field is required</string>
     <string name="error_invalid">Field is invalid</string>
     <string name="error_checkbox">This field must be checked</string>
+    <string name="error_min_length">This field must be at least %d symbols long</string>
 </resources>

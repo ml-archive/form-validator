@@ -15,6 +15,10 @@ import dk.nodes.formvalidator.validators.password.PasswordValidator
 open class DefaultErrorMessagesResolver(private val context: Context) : FormErrorMessageResolver {
 
     override fun resolveValidatorErrorMessage(validator: BaseValidator<*>): String {
+
+        if (validator is MinLengthValidator)
+            return context.getString(R.string.error_min_length, validator.min)
+
         val resource = when (validator) {
             is EmailValidator -> R.string.error_invalid_email
             is NumberValidator -> R.string.errror_invalid_number
@@ -24,6 +28,7 @@ open class DefaultErrorMessagesResolver(private val context: Context) : FormErro
             is NameValidator -> R.string.error_invalid_name
             is CheckboxValidator -> R.string.error_checkbox
             else -> R.string.error_invalid
+
         }
         return context.getString(resource)
     }
