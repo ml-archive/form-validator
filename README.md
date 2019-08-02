@@ -1,28 +1,36 @@
 # Whats new
-  - Error messages can be provided as attrbutes
-  - Ability to provide custom action when validation error occures
+  - Error messages can be provided as attributes
+  - Ability to provide custom action when validation error occurs
   - Better Lib Examples
   - Clear form functionality
   - ValidatableCheckBox
   - Validate edit text when losing focus
   - `form.retrieveAll()` - to retrieve all the field values from the form as Map
-  - "None" password streinght when its better to skip validation
+  - "None" password strength when its better to skip validation
   - `Bundlable` interface to help with configuration changes (store/restore Form state with bundles)
 
 
 # Form Validator
 Library to handle validation of input fields.
 
+## Installation
+
+```groovy
+    implementation 'dk.nodes.formvalidator:base:1.0.0'
+```
+
+
 ## Features:
   - Out of the box validation for common input types such as passwords, emails and Names.
-  - Grouping input fields into Forms to centrilize validation logic
+  - Grouping input fields into Forms to centralise validation logic
   - Automatic error handling when used together with `TextInputLayout`
+  - Storing and restoring form's state
 
 
 
 ## ValidatableEditText
 `ValidatableEditText` allows to validate one input field. It is a subclass of the `TextInputEditText` from the material library making it easy to use with the `TextInputLayout`. By specifying the `inputType`, it will try to automatically configure the validation logic. Currently supported `inputTypes`:
-  - `textEmailAdrres`
+  - `textEmailAddress`
   - `textPersonName`
   - `number`
   - `textPassword`
@@ -32,9 +40,13 @@ Library to handle validation of input fields.
 
   | Attribute | Description | Default |
   | --- | --- | --- |
-  | `app:passwordStreinght` | When `inputType` set to `textPassword`, this Attribute can further modify how strong the password must be. Can either be set as `none`, `weak`, `medium` or `strong` | `none` |
+  | `app:passwordStrength` | When `inputType` set to `textPassword`, this Attribute can further modify how strong the password must be. Can either be set as `none`, `weak`, `medium` or `strong` | `none` |
   | `app:identicalTo` | Allows to reference another `ValidatableEditText`, telling the view that its input should match to the referenced view's input  | `0` |
+  | `app:errorMessage` | Specifies the error message to be shown when content is invalid, when not specified `FormErrorMessageResolver` will be used to resolve the message base on the validator used  | `` |
+| `app:requiredMessage` | Specifies the error message to be shown when content is empty but is required, when not specified `FormErrorMessageResolver` will be used to resolve the message| `` |
   | `app:required` | Specifies if the input is required  | `false` |
+  | `app:min` | Specifies the minimal allowed length for this input field.  | `null` |
+
 
 #### Example
 
@@ -49,6 +61,7 @@ Library to handle validation of input fields.
                <dk.nodes.formvalidator.ValidatableEditText
                    android:id="@+id/passwordRepeatEt"
                    app:required="true"
+                   app:min="10"
                    app:identicalTo="@id/passwordEt"
                    android:inputType="textPassword"
                    android:layout_width="match_parent"
@@ -58,10 +71,13 @@ Library to handle validation of input fields.
  ```
 
 ##### In Activity/Fragments
-
+You can also specify some of the attribues using kotlin code
 ```kotlin
 // specify a custom Validator
 editText1.required = true
+editText1.errorMessage = "My error message"
+editText1.min = 10
+#### Custom Validation
 editText1.validator = object : TextInputValidator() {
             override fun validate(value: String): Boolean {
                 return value == "hello"
@@ -71,9 +87,17 @@ editText1.validator = object : TextInputValidator() {
 ```
 
 
+## ValidatableCheckBox
+`ValidatableCheckBox` is another validatable field. It has only one parameter: whether it requires to be checked or not
+### Attributes
+
+  | Attribute | Description | Default |
+  | --- | --- | --- |
+  | `app:required` | Specifies if the input is required  | `false` |
+
 
 ## FormLayout
-`FormLayout` serves as a container for `ValidatableEditText` to centrilize its validation.
+`FormLayout` serves as a container for `ValidatableEditText` and `ValidatableCheckBox` to centrilize the validation.
 
 ### Attrubutes
 
@@ -129,6 +153,23 @@ editText1.validator = object : TextInputValidator() {
 ```
 
 #### In Activity/Fragments
+
+#### Form validation
+In case you want to manually validate the form, you can call `validateAll()` method.
+This will check validity of all validatable fields and, in case of error, will trigger `showError()` for respective fields.
+
+```kotlin
+loginBtn.setOnClickListener {
+  if (form.validateAll()) {
+    // all good
+  } else {
+    // there are some errors
+  }
+}
+```
+#### Listening to changes
+You can also set a listener to check when form becomes valid/invalid
+
 ```kotlin
 // Form state listener
 form.setFormValidListener { isFormValid ->
@@ -136,12 +177,20 @@ form.setFormValidListener { isFormValid ->
           loginButton.isEnabled = isFormValid
        }
 
+```
+#### Handling Errors
+It is possible to specify custom error handler and message resolver globally for all the views
+```kotlin
 // Custom error messages
-form.setFormErrorHandler(object : ErrorMessageHandler {
-    override fun handleTextValidatorError(textInputValidator: TextInputValidator): String {
-       if (textInputValidator is EmailValidator) {
-         return "Custom Email Message"
+form.setErrorMessagesHandler(object : FormErrorMessageHandler {
+    override fun onFieldError(view: View, message: String)   
+          // do something with the error received
        }
     }
+})
+form.setErrorMessageResolver(object: FormErrorMessageResolver {
+  override fun resolveValidatorErrorMessage(validator: BaseValidator<*>) : String {
+    return "Your custom message"
+  }
 })
 ```
